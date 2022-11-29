@@ -1,10 +1,9 @@
 import type { GatsbyConfig } from "gatsby";
 
 const config: GatsbyConfig = {
-  pathPrefix: 'portfolio',
   siteMetadata: {
     title: "Portfolio",
-    siteUrl: "https://www.yourdomain.tld"
+    siteUrl: "https://rodneysantos.github.io"
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
@@ -13,7 +12,7 @@ const config: GatsbyConfig = {
   plugins: ["gatsby-plugin-postcss", {
     resolve: 'gatsby-plugin-google-analytics',
     options: {
-      "trackingId": ""
+      "trackingId": "UA-58581427-1"
     }
   }, "gatsby-plugin-image", "gatsby-plugin-sitemap", "gatsby-plugin-sharp", "gatsby-transformer-sharp", {
     resolve: 'gatsby-source-filesystem',
