@@ -1,14 +1,12 @@
 import * as React from "react";
 import Header from "../../components/header";
+import Gallery from "../../containers/gallery";
 
 const BlackAndWhiteGallery: React.FC = () => {
   return (
     <main>
       <Header />
-
-      <article>
-        <h1>Black and White</h1>
-      </article>
+      <Gallery />
     </main>
   );
 };

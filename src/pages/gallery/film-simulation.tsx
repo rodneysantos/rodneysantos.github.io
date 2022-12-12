@@ -1,14 +1,12 @@
 import * as React from "react";
 import Header from "../../components/header";
+import Gallery from "../../containers/gallery";
 
 const FilmSimulationGallery: React.FC = () => {
   return (
     <main>
       <Header />
-
-      <article>
-        <h1>Film Simulation</h1>
-      </article>
+      <Gallery />
     </main>
   );
 };
