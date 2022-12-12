@@ -1,3 +1,18 @@
-.img {
-  width: theme('width.full')
+.gallery {
+  @apply gap-4;
+  @apply grid;
+  @apply grid-cols-2;
+  @apply justify-items-center;
+  @apply w-1/2;
+}
+
+.gallery__img {
+  @apply h-96;
+  @apply object-cover;
+  @apply object-center;
+}
+
+.wrapper {
+  @apply flex;
+  @apply justify-center;
 }
