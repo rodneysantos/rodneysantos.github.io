@@ -1,78 +1,34 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
+import Photo from "../components/photo";
+import gallery, { GalleryPhoto } from "../db";
 import * as css from "./gallery.module.css";
 
+interface ModuleType {
+  default: string;
+}
+
 const Gallery: React.FC = () => {
-  return (
-    <article className={css.wrapper}>
-      <div className={css.gallery}>
-        <img
-          className={css.gallery__img}
-          src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&w=720&q=80"
-          alt=""
-        />
-        <img
-          className={css.gallery__img}
-          src="https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&w=720&q=80"
-          alt=""
-        />
-        <img
-          className={css.gallery__img}
-          src="https://images.unsplash.com/photo-1493397212122-2b85dda8106b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&w=720&q=80"
-          alt=""
-        />
-        <img
-          className={css.gallery__img}
-          src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&w=720&q=80"
-          alt=""
-        />
-        <img
-          className={css.gallery__img}
-          src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&w=720&q=80"
-          alt=""
-        />
-        <img
-          className={css.gallery__img}
-          src="https://images.unsplash.com/photo-1451976426598-a7593bd6d0b2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&w=720&q=80"
-          alt=""
-        />
-        <img
-          className={css.gallery__img}
-          src="https://images.unsplash.com/photo-1431576901776-e539bd916ba2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&w=720&q=80"
-          alt=""
-        />
-        <img
-          className={css.gallery__img}
-          src="https://images.unsplash.com/photo-1496564203457-11bb12075d90?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&w=720&q=80"
-          alt=""
-        />
-        <img
-          className={css.gallery__img}
-          src="https://images.unsplash.com/photo-1435575653489-b0873ec954e2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&w=720&q=80"
-          alt=""
-        />
-        <img
-          className={css.gallery__img}
-          src="https://images.unsplash.com/photo-1506749841726-3df2e72b9564?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&w=720&q=80"
-          alt=""
-        />
-        <img
-          className={css.gallery__img}
-          src="https://images.unsplash.com/photo-1483366774565-c783b9f70e2c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&w=720&q=80"
-          alt=""
-        />
-        <img
-          className={css.gallery__img}
-          src="https://images.unsplash.com/photo-1572883454114-1cf0031ede2a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&w=720&q=80"
-          alt=""
-        />
-        <img
-          className={css.gallery__img}
-          src="https://images.unsplash.com/photo-1600540984005-c7f3a641fbe5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&w=720&q=80"
-          alt=""
-        />
-      </div>
-    </article>
-  );
+  const [photos, setPhotos] = useState<string[]>([]);
+
+  useEffect(() => {
+    loadGallery(gallery)
+      .then(modules => modules.map(m => m.default))
+      .then(photos => setPhotos(photos));
+  });
+
+  const loadGallery = (photos: GalleryPhoto[]): Promise<ModuleType[]> => {
+    return Promise.all(photos.map(p => import(`../images/${p.name}.webp`)));
+  }
+
+  return <article className={css.wrapper}>
+    <div className={css.gallery}>
+      {photos.map(photo => {
+        return <Photo src={photo} />
+      })}
+    </div>
+  </article>
 };
+
+
 
 export default Gallery;

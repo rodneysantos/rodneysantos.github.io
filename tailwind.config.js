@@ -6,7 +6,14 @@ module.exports = {
     "./src/containers/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        148: "42rem",
+      },
+      width: {
+        148: "42rem",
+      },
+    },
   },
   plugins: [],
-}
+};

@@ -98,9 +98,6 @@
       }
     ]
   },
-  "files": [
-    "./typings/css.d.ts"
-  ],
   "include": [
     "./src/**/*",
     "./gatsby-node.ts",
