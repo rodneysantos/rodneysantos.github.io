@@ -1,39 +1,35 @@
 .gallery {
+  @apply gap-y-c2;
   @apply grid;
   @apply grid-cols-3;
   @apply justify-items-center;
+  @apply py-c2;
   @apply w-full;
-
-  @apply hd:gap-y-10;
-  @apply hd:py-9;
-
-  @apply 720p:gap-y-10;
-  @apply 720p:py-9;
-  
-  @apply fhd:gap-y-14;
-  @apply fhd:py-12;
-  
-  @apply qhd:gap-x-c4;
-  @apply qhd:gap-y-24;
-  @apply qhd:py-20;
 }
 
 .photo {
   @apply object-cover;
 
-  @apply hd:h-c11;
-  @apply hd:w-c11;
+  /* 1280px */
+  @apply xl:h-c11;
+  @apply xl:w-c11;
 
-  @apply 720p:h-c12;
-  @apply 720p:w-c12;
+  @apply 1366px:h-c12;
+  @apply 1366px:w-c12;
 
-  /*1546px*/
+  @apply 1440px:h-c13;
+  @apply 1440px:w-c13;
+
+  /* 1536px */
   @apply 2xl:h-c14;
   @apply 2xl:w-c14;
 
-  @apply fhd:h-c18;
-  @apply fhd:w-c18;
+  @apply 1600px:h-c15;
+  @apply 1600px:w-c15;
 
-  @apply qhd:h-c25;
-  @apply qhd:w-c25;
+  @apply 1920px:h-c19;
+  @apply 1920px:w-c19;
+
+  @apply 2560px:h-c27;
+  @apply 2560px:w-c27;
 }
