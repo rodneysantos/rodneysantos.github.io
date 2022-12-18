@@ -10,6 +10,10 @@ module.exports = {
       height: {
         148: "42rem",
       },
+      screens: {
+        "fhd": "1920px",
+        "qhd": "2560px",
+      },
       width: {
         148: "42rem",
       },

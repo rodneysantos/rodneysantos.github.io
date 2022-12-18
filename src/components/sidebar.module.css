@@ -1,0 +1,21 @@
+.brand {
+    @apply p-8;
+}
+
+.nav {
+    @apply flex;
+    @apply flex-col;
+}
+
+.nav__item {
+    @apply p-8;
+}
+
+.sidebar {
+    @apply w-80;
+}
+
+.stick {
+    @apply sticky;
+    @apply top-0;
+}

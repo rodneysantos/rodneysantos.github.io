@@ -20,13 +20,11 @@ const Gallery: React.FC = () => {
     return Promise.all(photos.map(p => import(`../images/${p.name}.webp`)));
   }
 
-  return <article className={css.wrapper}>
-    <div className={css.gallery}>
-      {photos.map(photo => {
-        return <Photo src={photo} />
-      })}
-    </div>
-  </article>
+  return <div className={css.gallery}>
+    {photos.map(photo => {
+      return <Photo src={photo} />
+    })}
+  </div>
 };
 
 

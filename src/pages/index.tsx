@@ -1,12 +1,10 @@
-import * as React from "react";
 import type { HeadFC, PageProps } from "gatsby";
-import Header from "../components/header";
+import React from "react";
+import Main from "../containers/main";
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
-    <main>
-      <Header />
-    </main>
+    <Main />
   );
 };
 

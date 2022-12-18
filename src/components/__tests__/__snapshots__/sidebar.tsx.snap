@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders correctly 1`] = `
+<div>
+  <div>
+    <div>
+      Xenon Photography
+    </div>
+    <nav>
+      <div>
+        <a
+          href="/gallery/black-and-white"
+        >
+          B & W
+        </a>
+      </div>
+      <div>
+        <a
+          href="/gallery/color"
+        >
+          Color
+        </a>
+      </div>
+      <div>
+        <a
+          href="/gallery/low-key"
+        >
+          Low-Key
+        </a>
+      </div>
+      <div>
+        <a
+          href="/gallery/film-simulation"
+        >
+          Film Simulation
+        </a>
+      </div>
+    </nav>
+  </div>
+</div>
+`;

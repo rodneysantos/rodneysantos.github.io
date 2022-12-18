@@ -1,13 +1,14 @@
 .gallery {
-  @apply gap-y-10;
   @apply grid;
-  @apply grid-cols-2;
   @apply justify-items-center;
-  @apply w-3/4;
-}
-
-.wrapper {
-  @apply flex;
-  @apply justify-center;
-  @apply py-8;
+  @apply py-16;
+  @apply w-10/12;
+  
+  @apply sm:max-xl:grid-cols-1;
+  
+  @apply xl:gap-y-24;
+  @apply xl:grid-cols-2;
+  
+  @apply qhd:gap-y-10;
+  @apply qhd:grid-cols-3;
 }

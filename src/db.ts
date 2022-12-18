@@ -4,6 +4,9 @@ export interface GalleryPhoto {
 
 export default [
   {
+    name: "DSCF6525",
+  },
+  {
     name: "DSCF6475",
   },
   {
@@ -23,8 +26,5 @@ export default [
   },
   {
     name: "DSCF6518",
-  },
-  {
-    name: "DSCF6525",
   },
 ];
