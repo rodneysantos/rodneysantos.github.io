@@ -1,14 +1,39 @@
 .gallery {
   @apply grid;
+  @apply grid-cols-3;
   @apply justify-items-center;
-  @apply py-16;
-  @apply w-10/12;
+  @apply w-full;
+
+  @apply hd:gap-y-10;
+  @apply hd:py-9;
+
+  @apply 720p:gap-y-10;
+  @apply 720p:py-9;
   
-  @apply sm:max-xl:grid-cols-1;
+  @apply fhd:gap-y-14;
+  @apply fhd:py-12;
   
-  @apply xl:gap-y-24;
-  @apply xl:grid-cols-2;
-  
-  @apply qhd:gap-y-10;
-  @apply qhd:grid-cols-3;
+  @apply qhd:gap-x-c4;
+  @apply qhd:gap-y-24;
+  @apply qhd:py-20;
+}
+
+.photo {
+  @apply object-cover;
+
+  @apply hd:h-c11;
+  @apply hd:w-c11;
+
+  @apply 720p:h-c12;
+  @apply 720p:w-c12;
+
+  /*1546px*/
+  @apply 2xl:h-c14;
+  @apply 2xl:w-c14;
+
+  @apply fhd:h-c18;
+  @apply fhd:w-c18;
+
+  @apply qhd:h-c25;
+  @apply qhd:w-c25;
 }
