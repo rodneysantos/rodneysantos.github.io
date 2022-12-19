@@ -32,7 +32,8 @@ function customSizing(multiplier) {
   const ratio = 1.618;
 
   while (multiplier > 0) {
-    values[`c${multiplier}`] = `${multiplier * ratio}rem`;
+    const value = multiplier * ratio;
+    values[`c${multiplier}`] = `${value.toFixed(3)}rem`;
     multiplier--;
   }
 
