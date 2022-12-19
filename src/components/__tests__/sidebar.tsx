@@ -1,13 +1,15 @@
-import { render } from "@testing-library/react";
+import { cleanup, render } from "@testing-library/react";
 import React from "react";
 import rendeder from "react-test-renderer";
-
 import Sidebar from "../sidebar";
 
-describe("Header", () => {
+afterEach(cleanup);
+
+describe("Sidebar component", () => {
   it("renders correctly", () => {
     // act
-    const tree = rendeder.create(<Sidebar />);
+    const tree = rendeder.create(<Sidebar />)
+      .toJSON();
 
     // assert
     expect(tree).toMatchSnapshot();

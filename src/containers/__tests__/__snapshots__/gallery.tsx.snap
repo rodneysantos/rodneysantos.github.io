@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Gallery component renders correctly 1`] = `
+<div>
+  <img
+    alt=""
+    src="image1.jpg"
+  />
+  <img
+    alt=""
+    src="image2.jpg"
+  />
+  <img
+    alt=""
+    src="image3.jpg"
+  />
+</div>
+`;
