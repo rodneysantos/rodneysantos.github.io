@@ -27,6 +27,9 @@
   @apply 1600px:h-c15;
   @apply 1600px:w-c15;
 
+  @apply 1728px:h-c17;
+  @apply 1728px:w-c17;
+
   @apply 1920px:h-c19;
   @apply 1920px:w-c19;
 

@@ -36,17 +36,20 @@ const Main: React.FC = () => {
     gallery.setSelectedPhoto(photo.src);
   };
 
+  const closePhotoViewer = () => {
+    gallery.setSelectedPhoto("");
+  };
+
   return (
     <main className={css.main}>
       <Sidebar />
       <Gallery photos={photos} onPhotoSelect={onPhotoSelect} />
 
-      {
-        <PhotoViewer
-          src={gallery.selectedPhoto}
-          isVisible={gallery.selectedPhoto !== ""}
-        />
-      }
+      <PhotoViewer
+        src={gallery.selectedPhoto}
+        isVisible={gallery.selectedPhoto !== ""}
+        closeHandler={closePhotoViewer}
+      />
     </main>
   );
 };

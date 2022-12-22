@@ -2,17 +2,23 @@ import React from "react";
 import * as css from "./photo-viewer.module.css";
 
 interface PhotoViewerProps {
-  src: string;
   isVisible: boolean;
+  closeHandler: () => void;
+  src: string;
 }
 
-const PhotoViewer: React.FC<PhotoViewerProps> = ({ isVisible, src }) => {
+const PhotoViewer: React.FC<PhotoViewerProps> = ({
+  closeHandler,
+  isVisible,
+  src,
+}) => {
   return (
     <>
       {isVisible && (
-        <div className={css.background}>
-          <div className={css.wrapper}>
-            <img src={src} alt="" />
+        <div className={css.photoViewer__background} onClick={() => closeHandler()}>
+          <div className={css.photoViewer__wrapper}>
+            <span className={css.photoViewer__close}>Close</span>
+            <img className={css.photoViewer__img} src={src} alt="" />
           </div>
         </div>
       )}
