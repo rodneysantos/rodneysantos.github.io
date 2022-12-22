@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PhotoViewer component renders correctly 1`] = `
+<div
+  data-testid="photo-viewer"
+  onClick={[Function]}
+>
+  <div>
+    <span
+      data-testid="photo-viewer-close"
+    >
+      Close
+    </span>
+    <img
+      alt=""
+      data-testid="photo-viewer-img"
+      src="https://example.com/image.jpg"
+    />
+  </div>
+</div>
+`;
