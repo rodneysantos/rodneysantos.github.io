@@ -8,8 +8,7 @@ afterEach(cleanup);
 describe("Sidebar component", () => {
   it("renders correctly", () => {
     // act
-    const tree = rendeder.create(<Sidebar />)
-      .toJSON();
+    const tree = rendeder.create(<Sidebar />).toJSON();
 
     // assert
     expect(tree).toMatchSnapshot();

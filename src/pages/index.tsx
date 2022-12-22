@@ -3,9 +3,7 @@ import React from "react";
 import Main from "../containers/main";
 
 const IndexPage: React.FC<PageProps> = () => {
-  return (
-    <Main />
-  );
+  return <Main />;
 };
 
 export default IndexPage;

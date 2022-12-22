@@ -1,16 +1,29 @@
 import React from "react";
 import * as css from "./gallery.module.css";
 
-interface GalleryProps {
-  images: string[];
+export interface GalleryPhoto {
+  id: string;
+  src: string;
 }
 
-const Gallery: React.FC<GalleryProps> = ({ images }) => {
+interface GalleryProps {
+  photos: GalleryPhoto[];
+  onPhotoSelect: (src: GalleryPhoto) => void;
+}
 
+const Gallery: React.FC<GalleryProps> = ({ photos, onPhotoSelect }) => {
   return (
     <div className={css.gallery}>
-      {images.map((img) => {
-        return <img className={css.photo} src={img} alt="" />;
+      {photos.map((photo) => {
+        return (
+          <img
+            key={photo.id}
+            className={css.photo}
+            src={photo.src}
+            alt=""
+            onClick={() => onPhotoSelect(photo)}
+          />
+        );
       })}
     </div>
   );

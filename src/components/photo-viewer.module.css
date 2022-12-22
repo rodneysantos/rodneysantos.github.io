@@ -1,0 +1,14 @@
+.background {
+    @apply bg-white;
+    @apply fixed;
+    @apply h-full;
+    @apply w-full;
+}
+
+.wrapper {
+    @apply content-center;
+    @apply flex;
+    @apply flex-wrap;
+    @apply h-full;
+    @apply justify-center;
+}

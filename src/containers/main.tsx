@@ -1,30 +1,54 @@
-import React, { useEffect, useState } from 'react';
-import Sidebar from '../components/sidebar';
-import Gallery from './gallery';
-import * as css from './main.module.css';
-import gallery, { GalleryPhoto } from "../db";
+import React, { useEffect, useState } from "react";
+import PhotoViewer from "../components/photo-viewer";
+import Sidebar from "../components/sidebar";
+import data, { PhotoAsset } from "../db";
+import Gallery, { GalleryPhoto } from "./gallery";
+import { useGallery, withGallery } from "./gallery.context";
+import * as css from "./main.module.css";
 
 interface ModuleType {
+  id: string;
   default: string;
 }
 
 const Main: React.FC = () => {
-  const [photos, setPhotos] = useState<string[]>([]);
+  const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
+  const gallery = useGallery();
 
   useEffect(() => {
-    loadGallery(gallery)
-      .then((modules) => modules.map((m) => m.default))
+    loadGallery(data)
+      .then((modules) => modules.map((m) => ({ id: m.id, src: m.default })))
       .then((photos) => setPhotos(photos));
-  });
+  }, []);
 
-  const loadGallery = (photos: GalleryPhoto[]): Promise<ModuleType[]> => {
-    return Promise.all(photos.map((p) => import(`../images/${p.name}.webp`)));
+  const loadGallery = async (photos: PhotoAsset[]) => {
+    const modules: ModuleType[] = await Promise.all(
+      photos.map(async (p) => ({
+        id: p.id,
+        ...(await import(`../images/${p.name}.webp`)),
+      })),
+    );
+
+    return modules;
   };
 
-  return <main className={css.main}>
-    <Sidebar />
-    <Gallery images={photos} />
-  </main>
+  const onPhotoSelect = (photo: GalleryPhoto) => {
+    gallery.setSelectedPhoto(photo.src);
+  };
+
+  return (
+    <main className={css.main}>
+      <Sidebar />
+      <Gallery photos={photos} onPhotoSelect={onPhotoSelect} />
+
+      {
+        <PhotoViewer
+          src={gallery.selectedPhoto}
+          isVisible={gallery.selectedPhoto !== ""}
+        />
+      }
+    </main>
+  );
 };
 
-export default Main;
+export default withGallery(Main);

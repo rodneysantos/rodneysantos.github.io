@@ -1,36 +1,59 @@
-import { cleanup, render } from '@testing-library/react';
-import React from 'react';
+import { cleanup, fireEvent, render } from "@testing-library/react";
+import React from "react";
 import rendeder from "react-test-renderer";
-import Gallery from '../gallery';
+import Gallery from "../gallery";
 
 afterEach(cleanup);
 
-describe('Gallery component', () => {
-  const images = ['image1.jpg', 'image2.jpg', 'image3.jpg'];
+describe("Gallery component", () => {
+  const photos = [
+    { id: "1", src: "photo1.jpg" },
+    { id: "2", src: "photo2.jpg" },
+    { id: "3", src: "photo3.jpg" },
+  ];
 
   it("renders correctly", () => {
     // act
-    const tree = rendeder.create(<Gallery images={images} />);
+    const tree = rendeder.create(<Gallery photos={photos} onPhotoSelect={() => { }} />).toJSON();
 
     // assert
     expect(tree).toMatchSnapshot();
   });
 
-  it('renders the correct number of images', () => {
+  it("should render the correct number of photos", () => {
     // act
-    const { getAllByAltText } = render(<Gallery images={images} />);
+    const { getAllByRole } = render(
+      <Gallery photos={photos} onPhotoSelect={() => { }} />,
+    );
 
     // assert
-    expect(getAllByAltText('').length).toEqual(images.length);
+    expect(getAllByRole("img").length).toEqual(3);
   });
 
-  it('renders the images with the correct src attributes', () => {
+  it("renders the images with the correct src attributes", () => {
     // act
-    const { getAllByAltText } = render(<Gallery images={images} />);
+    const { getAllByAltText } = render(
+      <Gallery photos={photos} onPhotoSelect={() => { }} />,
+    );
 
     // assert
-    getAllByAltText('').forEach((img, index) => {
-      expect((img as HTMLImageElement).src).toContain(images[index]);
+    getAllByAltText("").forEach((img, index) => {
+      expect((img as HTMLImageElement).src).toContain(photos[index].src);
     });
+  });
+
+  it("should call the onPhotoSelect callback when a photo is clicked", () => {
+    // arrange
+    const onPhotoSelect = jest.fn();
+    const photos = [{ id: "1", src: "photo1.jpg" }];
+
+    // act
+    const { getByRole } = render(
+      <Gallery photos={photos} onPhotoSelect={onPhotoSelect} />,
+    );
+    fireEvent.click(getByRole("img"));
+
+    // assert
+    expect(onPhotoSelect).toHaveBeenCalledWith({ id: "1", src: "photo1.jpg" });
   });
 });
