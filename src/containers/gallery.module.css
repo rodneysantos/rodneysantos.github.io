@@ -9,6 +9,7 @@
 
 .photo {
   @apply object-cover;
+  @apply opacity-0;
 
   /* 1280px */
   @apply xl:h-c11;
