@@ -3,6 +3,10 @@ import React from "react";
 import rendeder from "react-test-renderer";
 import Gallery from "../gallery";
 
+jest.mock('../gallery.module.css', () => ({
+  photo: 'test',
+}));
+
 afterEach(cleanup);
 
 describe("Gallery component", () => {

@@ -4,16 +4,19 @@ exports[`Gallery component renders correctly 1`] = `
 <div>
   <img
     alt=""
+    className="test"
     onClick={[Function]}
     src="photo1.jpg"
   />
   <img
     alt=""
+    className="test"
     onClick={[Function]}
     src="photo2.jpg"
   />
   <img
     alt=""
+    className="test"
     onClick={[Function]}
     src="photo3.jpg"
   />
