@@ -51,9 +51,9 @@ function addRippleAnimation(target: string, totalTarget: number) {
     },
   };
   const timeline = gsap.timeline({ defaults });
-  timeline.to(target, { alpha: 1, scale: 0.9, duration: 0.15 });
-  timeline.to(target, { scale: 1.1, duration: 0.3 });
-  timeline.to(target, { scale: 1, duration: 0.4 });
+  timeline.to(target, { alpha: 1, scale: 0.95, duration: 0.1 });
+  timeline.to(target, { scale: 1.05, duration: 0.3 });
+  timeline.to(target, { scale: 1, duration: 0.5 });
 }
 
 export default Gallery;

@@ -16,7 +16,7 @@ describe("Sidebar component", () => {
 
   it("displays correct brand name", () => {
     // arrange
-    const brandName = "Xenon Photography";
+    const brandName = "XENON PHOTOGRAPHY";
 
     // act
     const { getByText } = render(<Sidebar />);

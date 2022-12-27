@@ -1,14 +1,9 @@
 .brand {
-    @apply p-8;
-}
-
-.nav {
-    @apply flex;
-    @apply flex-col;
-}
-
-.nav__item {
-    @apply p-8;
+    @apply font-bold;
+    @apply px-c1;
+    @apply py-c2;
+    @apply text-lg;
+    @apply tracking-wider;
 }
 
 .sidebar {
