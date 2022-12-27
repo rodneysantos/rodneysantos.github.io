@@ -1,12 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300&display=swap');
+
+@font-face {
+    font-family: quicksand;
+    src: url(../../fonts/quicksand/static/Quicksand-Regular.ttf) format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: quicksand;
+    src: url(../../fonts/quicksand/static/Quicksand-SemiBold.ttf) format('truetype');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: quicksand;
+    src: url(../../fonts/quicksand/static/Quicksand-Bold.ttf) format('truetype');
+    font-weight: 700;
+}
 
 html,
 body {
     @apply text-base;
+    @apply text-slate-700;
     @apply tracking-wide;
 
-    font-family: 'Roboto', sans-serif;
+    font-family: quicksand;
 }
