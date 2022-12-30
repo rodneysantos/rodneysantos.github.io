@@ -3,8 +3,71 @@
 exports[`Sidebar component renders correctly 1`] = `
 <div>
   <div>
-    <div>
+    <div
+      data-testid="brand"
+    >
       XENON PHOTOGRAPHY
+    </div>
+    <div
+      data-testid="navigation"
+    >
+      <ul
+        data-testid="menu"
+      >
+        <li
+          data-testid="about"
+        >
+          About
+        </li>
+        <li
+          data-testid="portfolio"
+        >
+          Portfolio
+        </li>
+        <div
+          data-testid="sub-menu"
+        >
+          <ul
+            data-testid="menu"
+          >
+            <li
+              data-testid="architecture"
+            >
+              Architecture
+            </li>
+            <li
+              data-testid="blackAndWhite"
+            >
+              Black and White
+            </li>
+            <li
+              data-testid="color"
+            >
+              Color
+            </li>
+            <li
+              data-testid="filmSimulation"
+            >
+              Film Simulation
+            </li>
+            <li
+              data-testid="gasStation"
+            >
+              Gas Station
+            </li>
+            <li
+              data-testid="lowKey"
+            >
+              Low-Key
+            </li>
+            <li
+              data-testid="uncategorized"
+            >
+              Uncategorized
+            </li>
+          </ul>
+        </div>
+      </ul>
     </div>
   </div>
 </div>

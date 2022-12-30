@@ -6,6 +6,20 @@
     @apply tracking-wider;
 }
 
+.navigation {
+    @apply leading-10;
+    @apply list-none;
+}
+
+.navigation ul {
+    @apply px-5;
+}
+
+.navigation__wrapper {
+    @apply font-normal;
+    @apply px-c1;
+}
+
 .sidebar {
     @apply w-80;
 }
