@@ -2,7 +2,7 @@
     @apply font-bold;
     @apply px-c1;
     @apply pt-c2;
-    @apply pb-5;
+    @apply pb-c1;
     @apply text-lg;
     @apply tracking-wider;
 }
