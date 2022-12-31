@@ -1,35 +1,83 @@
-import { Link } from "gatsby";
-import React from "react";
+import React, { Children } from "react";
 import * as css from "./sidebar.module.css";
+import * as icon from "../images/icons/bmc-full-logo.svg";
 
 interface Navigation {
-  id: number;
+  key: string;
   name: string;
-  link: string;
+  menus?: Navigation[];
 }
 
-const navigation: Navigation[] = [
-  { id: 1, name: "B & W", link: "/gallery/black-and-white" },
-  { id: 2, name: "Color", link: "/gallery/color" },
-  { id: 3, name: "Low-Key", link: "/gallery/low-key" },
-  { id: 4, name: "Film Simulation", link: "/gallery/film-simulation" },
+const menus: Navigation[] = [
+  {
+    key: "about",
+    name: "About",
+  },
+  {
+    key: "portfolio",
+    name: "Portfolio",
+    menus: [
+      { key: "architecture", name: "Architecture" },
+      { key: "blackAndWhite", name: "Black and White" },
+      { key: "color", name: "Color" },
+      { key: "filmSimulation", name: "Film Simulation" },
+      { key: "gasStation", name: "Gas Station" },
+      { key: "lowKey", name: "Low-Key" },
+      { key: "uncategorized", name: "Uncategorized" },
+    ],
+  },
 ];
 
 const Sidebar: React.FC = () => {
-  return (
-    <div className={css.sidebar}>
-      <div className={css.stick}>
-        <div className={css.brand}>Xenon Photography</div>
+  const listBuilder = (menus: Navigation[]) => (
+    <>
+      <ul className={css.navigation} data-testid="menu">
+        {Children.toArray(
+          menus.map(({ key, name, menus }) => (
+            <>
+              <li className={css.menu} key={key} data-testid={key}>
+                {name}
+              </li>
 
-        <nav className={css.nav}>
-          {navigation.map((nav) => (
-            <div key={nav.id} className={css.nav__item}>
-              <Link to={nav.link}>{nav.name}</Link>
-            </div>
-          ))}
-        </nav>
+              {menus !== undefined && (
+                <div data-testid="sub-menu">{listBuilder(menus)}</div>
+              )}
+            </>
+          )),
+        )}
+      </ul>
+    </>
+  );
+
+  return (
+    <>
+      <div className={css.sidebar}>
+        <div className={css.stick}>
+          <div className={css.brand} data-testid="brand">
+            XENON PHOTOGRAPHY
+          </div>
+
+          <div className={css.navigation__wrapper} data-testid="navigation">
+            {listBuilder(menus)}
+          </div>
+
+          <a
+            className={css.support}
+            href="https://www.buymeacoffee.com/xenon.photo"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img
+              className={css.support__buymeacoffee}
+              src={icon.default}
+              alt="Buy me a coffee icon"
+            />
+
+            <span className={css.support__copyright}>© {new Date().getFullYear()}</span>
+          </a>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

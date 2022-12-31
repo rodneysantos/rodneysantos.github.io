@@ -3,39 +3,86 @@
 exports[`Sidebar component renders correctly 1`] = `
 <div>
   <div>
-    <div>
-      Xenon Photography
+    <div
+      data-testid="brand"
+    >
+      XENON PHOTOGRAPHY
     </div>
-    <nav>
-      <div>
-        <a
-          href="/gallery/black-and-white"
+    <div
+      data-testid="navigation"
+    >
+      <ul
+        data-testid="menu"
+      >
+        <li
+          data-testid="about"
         >
-          B & W
-        </a>
-      </div>
-      <div>
-        <a
-          href="/gallery/color"
+          About
+        </li>
+        <li
+          data-testid="portfolio"
         >
-          Color
-        </a>
-      </div>
-      <div>
-        <a
-          href="/gallery/low-key"
+          Portfolio
+        </li>
+        <div
+          data-testid="sub-menu"
         >
-          Low-Key
-        </a>
-      </div>
-      <div>
-        <a
-          href="/gallery/film-simulation"
-        >
-          Film Simulation
-        </a>
-      </div>
-    </nav>
+          <ul
+            data-testid="menu"
+          >
+            <li
+              data-testid="architecture"
+            >
+              Architecture
+            </li>
+            <li
+              data-testid="blackAndWhite"
+            >
+              Black and White
+            </li>
+            <li
+              data-testid="color"
+            >
+              Color
+            </li>
+            <li
+              data-testid="filmSimulation"
+            >
+              Film Simulation
+            </li>
+            <li
+              data-testid="gasStation"
+            >
+              Gas Station
+            </li>
+            <li
+              data-testid="lowKey"
+            >
+              Low-Key
+            </li>
+            <li
+              data-testid="uncategorized"
+            >
+              Uncategorized
+            </li>
+          </ul>
+        </div>
+      </ul>
+    </div>
+    <a
+      href="https://www.buymeacoffee.com/xenon.photo"
+      rel="noreferrer"
+      target="_blank"
+    >
+      <img
+        alt="Buy me a coffee icon"
+        src={{}}
+      />
+      <span>
+        © 
+        2022
+      </span>
+    </a>
   </div>
 </div>
 `;
