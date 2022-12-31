@@ -1,5 +1,6 @@
 import React, { Children } from "react";
 import * as css from "./sidebar.module.css";
+import * as icon from "../images/icons/bmc-full-logo.svg";
 
 interface Navigation {
   key: string;
@@ -34,7 +35,7 @@ const Sidebar: React.FC = () => {
         {Children.toArray(
           menus.map(({ key, name, menus }) => (
             <>
-              <li key={key} data-testid={key}>
+              <li className={css.menu} key={key} data-testid={key}>
                 {name}
               </li>
 
@@ -59,6 +60,21 @@ const Sidebar: React.FC = () => {
           <div className={css.navigation__wrapper} data-testid="navigation">
             {listBuilder(menus)}
           </div>
+
+          <a
+            className={css.support}
+            href="https://www.buymeacoffee.com/xenon.photo"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img
+              className={css.support__buymeacoffee}
+              src={icon.default}
+              alt="Buy me a coffee icon"
+            />
+
+            <span className={css.support__copyright}>© {new Date().getFullYear()}</span>
+          </a>
         </div>
       </div>
     </>

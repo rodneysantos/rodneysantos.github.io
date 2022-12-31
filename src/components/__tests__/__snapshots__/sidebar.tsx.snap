@@ -69,6 +69,20 @@ exports[`Sidebar component renders correctly 1`] = `
         </div>
       </ul>
     </div>
+    <a
+      href="https://www.buymeacoffee.com/xenon.photo"
+      rel="noreferrer"
+      target="_blank"
+    >
+      <img
+        alt="Buy me a coffee icon"
+        src={{}}
+      />
+      <span>
+        © 
+        2022
+      </span>
+    </a>
   </div>
 </div>
 `;
