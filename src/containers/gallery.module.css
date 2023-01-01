@@ -1,22 +1,29 @@
 .gallery {
-  @apply gap-y-c2;
   @apply grid;
   @apply grid-cols-3;
   @apply justify-items-center;
   @apply py-c2;
   @apply w-full;
+
+  @apply 1024px:gap-y-0;
+
+  @apply xl:grid-rows-none;
+  @apply xl:gap-y-c2;
 }
 
 .photo {
   @apply object-cover;
   @apply opacity-0;
 
+  @apply 1024px:h-52;
+  @apply 1024px:w-52;
+
   /* 1280px */
   @apply xl:h-c11;
-  @apply xl:w-c11;
+  @apply xl:w-72;
 
   @apply 1366px:h-c12;
-  @apply 1366px:w-c12;
+  @apply 1366px:w-80;
 
   @apply 1440px:h-c13;
   @apply 1440px:w-c13;

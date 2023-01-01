@@ -11,6 +11,7 @@ const theme = {
     height: customSizes,
     padding: customSizes,
     screens: {
+      "1024px": "1024px",
       "1366px": "1366px",
       "1440px": "1440px",
       "1600px": "1600px",

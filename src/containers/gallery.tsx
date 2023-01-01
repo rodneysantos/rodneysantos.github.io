@@ -13,6 +13,7 @@ interface GalleryProps {
 }
 
 const Gallery: React.FC<GalleryProps> = ({ photos, onPhotoSelect }) => {
+  const className = [css.gallery, "1024px:grid-rows-[repeat(auto-fill,_258px)]"];
   const root = useRef(null);
 
   useEffect(() => {
@@ -25,7 +26,7 @@ const Gallery: React.FC<GalleryProps> = ({ photos, onPhotoSelect }) => {
   }, [photos]);
 
   return (
-    <div ref={root} className={css.gallery}>
+    <div ref={root} className={className.join(' ')}>
       {photos.map((photo) => {
         return (
           <img

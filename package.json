@@ -11,7 +11,7 @@
     "build": "gatsby build",
     "clean": "gatsby clean",
     "deploy": "gatsby build && gh-pages -d public -b main",
-    "develop": "gatsby develop",
+    "develop": "gatsby develop -H 0.0.0.0",
     "lint": "rome check ./src && rome format ./src --write",
     "lint:commit": "commitlint",
     "prepare": "husky install",
