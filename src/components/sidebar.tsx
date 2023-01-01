@@ -8,27 +8,27 @@ interface Navigation {
   menus?: Navigation[];
 }
 
-const menus: Navigation[] = [
-  {
-    key: "about",
-    name: "About",
-  },
-  {
-    key: "portfolio",
-    name: "Portfolio",
-    menus: [
-      { key: "architecture", name: "Architecture" },
-      { key: "blackAndWhite", name: "Black and White" },
-      { key: "color", name: "Color" },
-      { key: "filmSimulation", name: "Film Simulation" },
-      { key: "gasStation", name: "Gas Station" },
-      { key: "lowKey", name: "Low-Key" },
-      { key: "uncategorized", name: "Uncategorized" },
-    ],
-  },
-];
-
 const Sidebar: React.FC = () => {
+  const menus: Navigation[] = [
+    {
+      key: "about",
+      name: "About",
+    },
+    {
+      key: "portfolio",
+      name: "Portfolio",
+      menus: [
+        { key: "architecture", name: "Architecture" },
+        { key: "blackAndWhite", name: "Black and White" },
+        { key: "color", name: "Color" },
+        { key: "filmSimulation", name: "Film Simulation" },
+        { key: "gasStation", name: "Gas Station" },
+        { key: "lowKey", name: "Low-Key" },
+        { key: "uncategorized", name: "Uncategorized" },
+      ],
+    },
+  ];
+
   const listBuilder = (menus: Navigation[]) => (
     <>
       <ul className={css.navigation} data-testid="menu">
@@ -73,7 +73,9 @@ const Sidebar: React.FC = () => {
               alt="Buy me a coffee icon"
             />
 
-            <span className={css.support__copyright}>© {new Date().getFullYear()}</span>
+            <span className={css.support__copyright}>
+              © {new Date().getFullYear()}
+            </span>
           </a>
         </div>
       </div>
