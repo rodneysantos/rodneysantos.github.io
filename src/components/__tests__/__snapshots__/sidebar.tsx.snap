@@ -80,7 +80,7 @@ exports[`Sidebar component renders correctly 1`] = `
       />
       <span>
         © 
-        2022
+        2023
       </span>
     </a>
   </div>

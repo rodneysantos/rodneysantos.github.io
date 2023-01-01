@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import * as css from "./photo-viewer.module.css";
 
 interface PhotoViewerProps {
@@ -7,11 +7,7 @@ interface PhotoViewerProps {
   src: string;
 }
 
-const PhotoViewer: React.FC<PhotoViewerProps> = ({
-  closeHandler,
-  isVisible,
-  src,
-}) => {
+const PhotoViewer: React.FC<PhotoViewerProps> = memo(({ closeHandler, isVisible, src, }) => {
   return (
     <>
       {isVisible && (
@@ -23,7 +19,7 @@ const PhotoViewer: React.FC<PhotoViewerProps> = ({
         </div>
       )}
     </>
-  );
-};
+  )
+});
 
 export default PhotoViewer;
