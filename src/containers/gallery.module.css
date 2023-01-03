@@ -5,15 +5,44 @@
   @apply py-c2;
   @apply w-full;
 
-  @apply 1024px:gap-y-0;
+  @apply 320px-425px:gap-y-c1;
+  @apply 320px-425px:grid-cols-1;
+  @apply 320px-425px:px-6;
 
-  @apply xl:grid-rows-none;
+  @apply 601px:grid-rows-601px;
+
+  @apply 768px:grid-rows-768px;
+
+  @apply 810px:grid-rows-810px;
+
+  @apply 1024px:grid-rows-1024px;
+
+  /* 1280px */
   @apply xl:gap-y-c2;
+  @apply xl:grid-rows-none;
 }
 
 .photo {
   @apply object-cover;
   @apply opacity-0;
+
+  @apply 360px:h-c12;
+  @apply 360px:w-c12;
+
+  @apply 390px:h-c13;
+  @apply 390px:w-c13;
+
+  @apply 414px:h-c15;
+  @apply 414px:w-c15;
+
+  @apply 601px:h-28;
+  @apply 601px:w-28;
+
+  @apply 768px:h-36;
+  @apply 768px:w-36;
+
+  @apply 810px:h-40;
+  @apply 810px:w-40;
 
   @apply 1024px:h-52;
   @apply 1024px:w-52;

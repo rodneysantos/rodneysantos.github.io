@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Gallery component renders correctly 1`] = `
-<div
-  className=" 1024px:grid-rows-[repeat(auto-fill,_258px)]"
->
+<div>
   <img
     alt=""
     className="test"
