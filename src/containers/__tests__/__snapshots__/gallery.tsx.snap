@@ -1,22 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Gallery component renders correctly 1`] = `
-<div>
+<div
+  className="1024px:gap-10 2560px:gap-20 auto-rows-[minmax(min-content,_max-content)] gap-12 grid grid-cols-3 min-[360px]:max-[1023px]:grid-cols-2 min-[1280px]:max-[1919px]:gap-[3.25rem] min-[1440px]:max-[1920px]:gap-16 py-12 pr-12"
+>
   <img
     alt=""
-    className="test"
+    className="aspect-square h-full object-cover opacity-0 photo w-full"
     onClick={[Function]}
     src="photo1.jpg"
   />
   <img
     alt=""
-    className="test"
+    className="aspect-square h-full object-cover opacity-0 photo w-full"
     onClick={[Function]}
     src="photo2.jpg"
   />
   <img
     alt=""
-    className="test"
+    className="aspect-square h-full object-cover opacity-0 photo w-full"
     onClick={[Function]}
     src="photo3.jpg"
   />

@@ -1,25 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Sidebar component renders correctly 1`] = `
-<div>
-  <div>
+<div
+  className="h-auto w-80"
+>
+  <div
+    className="flex flex-col h-screen sticky top-0"
+  >
     <div
+      className="font-bold pb-c1 px-c1 pt-c2 text-lg tracking-wider"
       data-testid="brand"
     >
       XENON PHOTOGRAPHY
     </div>
     <div
+      className="font-normal grow px-c1"
       data-testid="navigation"
     >
       <ul
+        className="leading-10 list-none [&_ul]:px-5"
         data-testid="menu"
       >
         <li
+          className="cursor-pointer"
           data-testid="about"
         >
           About
         </li>
         <li
+          className="cursor-pointer"
           data-testid="portfolio"
         >
           Portfolio
@@ -28,39 +37,47 @@ exports[`Sidebar component renders correctly 1`] = `
           data-testid="sub-menu"
         >
           <ul
+            className="leading-10 list-none [&_ul]:px-5"
             data-testid="menu"
           >
             <li
+              className="cursor-pointer"
               data-testid="architecture"
             >
               Architecture
             </li>
             <li
+              className="cursor-pointer"
               data-testid="blackAndWhite"
             >
               Black and White
             </li>
             <li
+              className="cursor-pointer"
               data-testid="color"
             >
               Color
             </li>
             <li
+              className="cursor-pointer"
               data-testid="filmSimulation"
             >
               Film Simulation
             </li>
             <li
+              className="cursor-pointer"
               data-testid="gasStation"
             >
               Gas Station
             </li>
             <li
+              className="cursor-pointer"
               data-testid="lowKey"
             >
               Low-Key
             </li>
             <li
+              className="cursor-pointer"
               data-testid="uncategorized"
             >
               Uncategorized
@@ -70,15 +87,19 @@ exports[`Sidebar component renders correctly 1`] = `
       </ul>
     </div>
     <a
+      className="content-center flex flex-col flex-wrap pb-c1"
       href="https://www.buymeacoffee.com/xenon.photo"
       rel="noreferrer"
       target="_blank"
     >
       <img
         alt="Buy me a coffee icon"
+        className="w-1/2"
         src={{}}
       />
-      <span>
+      <span
+        className="mt-1 text-center text-xs"
+      >
         © 
         2023
       </span>

@@ -4,7 +4,7 @@ import Sidebar from "../components/sidebar";
 import data, { PhotoAsset } from "../db";
 import Gallery, { GalleryPhoto } from "./gallery";
 import { useGallery, withGallery } from "./gallery.context";
-import * as css from "./main.module.css";
+import classNames from 'classnames';
 
 interface ModuleType {
   id: string;
@@ -14,6 +14,7 @@ interface ModuleType {
 const Main: React.FC = () => {
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
   const gallery = useGallery();
+  const cns = cn();
 
   useEffect(() => {
     loadGallery(data)
@@ -41,7 +42,7 @@ const Main: React.FC = () => {
   };
 
   return (
-    <main className={css.main}>
+    <main className={cns.main}>
       <Sidebar />
       <Gallery photos={photos} onPhotoSelect={onPhotoSelect} />
 
@@ -53,5 +54,16 @@ const Main: React.FC = () => {
     </main>
   );
 };
+
+function cn() {
+  return {
+    main: classNames(
+      '320px-425px:flex-col',
+      'flex',
+      'flex-row',
+      'min-[360px]:max-[1023px]:flex-col',
+    ),
+  };
+}
 
 export default withGallery(Main);

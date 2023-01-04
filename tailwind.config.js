@@ -14,8 +14,6 @@ const theme = {
     height: fixedSizes,
     padding: fixedSizes,
     screens: {
-      "320px-425px": { min: "320px", max: "425px" },
-
       "360px": "360px",
       "390px": "390px",
       "414px": "414px",

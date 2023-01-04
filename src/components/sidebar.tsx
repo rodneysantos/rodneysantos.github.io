@@ -1,5 +1,5 @@
+import classNames from 'classnames';
 import React, { Children } from "react";
-import * as css from "./sidebar.module.css";
 import * as icon from "../images/icons/bmc-full-logo.svg";
 
 interface Navigation {
@@ -9,6 +9,7 @@ interface Navigation {
 }
 
 const Sidebar: React.FC = () => {
+  const cns = cn();
   const menus: Navigation[] = [
     {
       key: "about",
@@ -31,11 +32,11 @@ const Sidebar: React.FC = () => {
 
   const listBuilder = (menus: Navigation[]) => (
     <>
-      <ul className={css.navigation} data-testid="menu">
+      <ul className={cns.nav} data-testid="menu">
         {Children.toArray(
           menus.map(({ key, name, menus }) => (
             <>
-              <li className={css.menu} key={key} data-testid={key}>
+              <li className={cns.menu} key={key} data-testid={key}>
                 {name}
               </li>
 
@@ -51,29 +52,29 @@ const Sidebar: React.FC = () => {
 
   return (
     <>
-      <div className={css.sidebar}>
-        <div className={css.stick}>
-          <div className={css.brand} data-testid="brand">
+      <div className={cns.sidebar}>
+        <div className={cns.stick}>
+          <div className={cns.brand} data-testid="brand">
             XENON PHOTOGRAPHY
           </div>
 
-          <div className={css.navigation__wrapper} data-testid="navigation">
+          <div className={cns.navContainer} data-testid="navigation">
             {listBuilder(menus)}
           </div>
 
           <a
-            className={css.support}
+            className={cns.support}
             href="https://www.buymeacoffee.com/xenon.photo"
             target="_blank"
             rel="noreferrer"
           >
             <img
-              className={css.support__buymeacoffee}
+              className={cns.buyMeACoffee}
               src={icon.default}
               alt="Buy me a coffee icon"
             />
 
-            <span className={css.support__copyright}>
+            <span className={cns.copyright}>
               © {new Date().getFullYear()}
             </span>
           </a>
@@ -82,5 +83,57 @@ const Sidebar: React.FC = () => {
     </>
   );
 };
+
+function cn() {
+  return {
+    brand: classNames(
+      'font-bold',
+      'pb-c1',
+      'px-c1',
+      'pt-c2',
+      'text-lg',
+      'tracking-wider',
+    ),
+    buyMeACoffee: classNames(
+      'w-1/2',
+    ),
+    copyright: classNames(
+      'mt-1',
+      'text-center',
+      'text-xs',
+    ),
+    menu: classNames(
+      'cursor-pointer',
+    ),
+    nav: classNames(
+      'leading-10',
+      'list-none',
+      '[&_ul]:px-5',
+    ),
+    navContainer: classNames(
+      'font-normal',
+      'grow',
+      'px-c1',
+    ),
+    sidebar: classNames(
+      'h-auto',
+      'w-80',
+    ),
+    stick: classNames(
+      'flex',
+      'flex-col',
+      'h-screen',
+      'sticky',
+      'top-0',
+    ),
+    support: classNames(
+      'content-center',
+      'flex',
+      'flex-col',
+      'flex-wrap',
+      'pb-c1',
+    ),
+  };
+}
 
 export default Sidebar;

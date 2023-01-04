@@ -1,6 +1,0 @@
-.main {
-    @apply flex;
-    @apply flex-row;
-
-    @apply 320px-425px:flex-col;
-}
