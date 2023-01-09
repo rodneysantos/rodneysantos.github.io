@@ -10,23 +10,16 @@ const content = [
 /** @type {import('tailwindcss').Config['theme']} */
 const theme = {
   extend: {
+    fontFamily: {
+      "big-shoulder": ["big-shoulder", "Helvetica, Arial, sans-serif"],
+      "dosis": ["dosis", "Helvetica, Arial, sans-serif"],
+    },
     gridTemplateRows: gridRows,
     height: fixedSizes,
     padding: fixedSizes,
     screens: {
-      "360px": "360px",
-      "390px": "390px",
-      "414px": "414px",
-      "601px": "601px",
-      "768px": "768px",
-      "810px": "810px",
-      "1024px": "1024px",
-      "1366px": "1366px",
-      "1440px": "1440px",
-      "1600px": "1600px",
-      "1728px": "1728px",
-      "1920px": "1920px",
-      "2560px": "2560px",
+      "3xl": "1920px",
+      "4xl": "2560px",
     },
     spacing: fixedSizes,
     width: { ...fixedSizes, ...fractionSizes },

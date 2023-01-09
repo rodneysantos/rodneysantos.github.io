@@ -3,27 +3,15 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: quicksand;
-    src: url(../../fonts/quicksand/static/Quicksand-Light.ttf) format('truetype');
-    font-weight: 300;
-}
-
-@font-face {
-    font-family: quicksand;
-    src: url(../../fonts/quicksand/static/Quicksand-Regular.ttf) format('truetype');
-    font-weight: 400;
-}
-
-@font-face {
-    font-family: quicksand;
-    src: url(../../fonts/quicksand/static/Quicksand-SemiBold.ttf) format('truetype');
-    font-weight: 600;
-}
-
-@font-face {
-    font-family: quicksand;
-    src: url(../../fonts/quicksand/static/Quicksand-Bold.ttf) format('truetype');
+    font-family: big-shoulder;
+    src: url(../../fonts/big-shoulders-display-bold.ttf) format('truetype');
     font-weight: 700;
+}
+
+@font-face {
+    font-family: dosis;
+    src: url(../../fonts/dosis-regular.ttf) format('truetype');
+    font-weight: 400;
 }
 
 html,
@@ -31,6 +19,4 @@ body {
     @apply text-base;
     @apply text-slate-700;
     @apply tracking-wide;
-
-    font-family: quicksand;
 }
