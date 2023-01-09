@@ -1,6 +1,6 @@
 import classNames from "classnames";
-import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import React, { useEffect, useRef } from "react";
 
 export interface GalleryPhoto {
   id: string;
@@ -18,7 +18,7 @@ const Gallery: React.FC<GalleryProps> = ({ photos, onPhotoSelect }) => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const target = '.photo';
+      const target = ".photo";
       addRippleAnimation(target, photos.length);
     }, root);
 
@@ -60,33 +60,33 @@ function addRippleAnimation(target: string, totalTarget: number) {
 function cn() {
   return {
     gallery: classNames(
-      'auto-rows-[minmax(min-content,_max-content)]',
-      'gap-12',
-      'grid',
-      'grid-col',
-      'p-12',
+      "auto-rows-[minmax(min-content,_max-content)]",
+      "gap-12",
+      "grid",
+      "grid-col",
+      "p-12",
 
-      'sm:grid-cols-2',
+      "sm:grid-cols-2",
 
-      'lg:grid-cols-3',
+      "lg:grid-cols-3",
 
-      '2xl:gap-14',
-      '2xl:p-14',
+      "2xl:gap-14",
+      "2xl:p-14",
 
-      '3xl:gap-16',
-      '3xl:p-16',
+      "3xl:gap-16",
+      "3xl:p-16",
 
-      '4xl:gap-24',
-      '4xl:p-24',
+      "4xl:gap-24",
+      "4xl:p-24",
     ),
     photo: classNames(
-      'aspect-square',
-      'h-full',
-      'object-cover',
-      'opacity-0',
-      'photo',
-      'w-full',
-    )
+      "aspect-square",
+      "h-full",
+      "object-cover",
+      "opacity-0",
+      "photo",
+      "w-full",
+    ),
   };
 }
 

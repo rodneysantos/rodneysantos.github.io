@@ -1,10 +1,10 @@
 import { cleanup, fireEvent, render } from "@testing-library/react";
 import React from "react";
 import rendeder from "react-test-renderer";
-import Gallery from "../gallery";
+import Gallery from "../Gallery";
 
-jest.mock('../gallery.module.css', () => ({
-  photo: 'test',
+jest.mock("../gallery.module.css", () => ({
+  photo: "test",
 }));
 
 afterEach(cleanup);
@@ -18,7 +18,9 @@ describe("Gallery component", () => {
 
   it("renders correctly", () => {
     // act
-    const tree = rendeder.create(<Gallery photos={photos} onPhotoSelect={() => { }} />).toJSON();
+    const tree = rendeder
+      .create(<Gallery photos={photos} onPhotoSelect={() => {}} />)
+      .toJSON();
 
     // assert
     expect(tree).toMatchSnapshot();
@@ -27,7 +29,7 @@ describe("Gallery component", () => {
   it("should render the correct number of photos", () => {
     // act
     const { getAllByRole } = render(
-      <Gallery photos={photos} onPhotoSelect={() => { }} />,
+      <Gallery photos={photos} onPhotoSelect={() => {}} />,
     );
 
     // assert
@@ -37,7 +39,7 @@ describe("Gallery component", () => {
   it("renders the images with the correct src attributes", () => {
     // act
     const { getAllByAltText } = render(
-      <Gallery photos={photos} onPhotoSelect={() => { }} />,
+      <Gallery photos={photos} onPhotoSelect={() => {}} />,
     );
 
     // assert

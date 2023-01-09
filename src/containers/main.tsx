@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import PhotoViewer from "../components/photo-viewer";
-import Sidebar from "../components/sidebar";
+import PhotoViewer from "../components/PhotoViewer";
+import Sidebar from "../components/Sidebar";
 import data, { PhotoAsset } from "../db";
-import Gallery, { GalleryPhoto } from "./gallery";
-import { useGallery, withGallery } from "./gallery.context";
+import Gallery, { GalleryPhoto } from "./Gallery";
+import { useGallery, withGallery } from "./contexts/GalleryContext";
 import SidebarOutset from "./SidebarOutset";
 
 interface ModuleType {
@@ -40,23 +40,25 @@ const Main: React.FC = () => {
     gallery.setSelectedPhoto("");
   };
 
-  return <React.StrictMode>
-    <main className="flex flex-col lg:flex-row">
-      <div className="flex-auto">
-        <Gallery photos={photos} onPhotoSelect={onPhotoSelect} />
-      </div>
+  return (
+    <React.StrictMode>
+      <main className="flex flex-col lg:flex-row">
+        <div className="flex-auto">
+          <Gallery photos={photos} onPhotoSelect={onPhotoSelect} />
+        </div>
 
-      <SidebarOutset value={false}>
-        <Sidebar />
-      </SidebarOutset>
+        <SidebarOutset value={false}>
+          <Sidebar />
+        </SidebarOutset>
 
-      <PhotoViewer
-        src={gallery.selectedPhoto}
-        isVisible={gallery.selectedPhoto !== ""}
-        closeHandler={closePhotoViewer}
-      />
-    </main>
-  </React.StrictMode>
+        <PhotoViewer
+          src={gallery.selectedPhoto}
+          isVisible={gallery.selectedPhoto !== ""}
+          closeHandler={closePhotoViewer}
+        />
+      </main>
+    </React.StrictMode>
+  );
 };
 
 export default withGallery(Main);

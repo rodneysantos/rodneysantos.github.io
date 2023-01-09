@@ -2,7 +2,7 @@ import { cleanup, fireEvent, render } from "@testing-library/react";
 import React from "react";
 import rendeder from "react-test-renderer";
 import { SidebarOutsetContext } from "../../containers/SidebarOutset";
-import Sidebar from "../sidebar";
+import Sidebar from "../Sidebar";
 
 afterEach(cleanup);
 
@@ -39,16 +39,18 @@ describe("Sidebar component", () => {
     expect(menus[0].children[1].textContent).toEqual("Architecture");
   });
 
-  it('toggles the sidebar when the brand icon is clicked', () => {
+  it("toggles the sidebar when the brand icon is clicked", () => {
     // assemble
     const isVisible = false;
     const setIsVisible = jest.fn();
 
     // act
-    const { getByTestId } = render(<SidebarOutsetContext.Provider value={{ isVisible, setIsVisible }}>
-      <Sidebar />
-    </SidebarOutsetContext.Provider>);
-    const brandIcon = getByTestId('chevron-icon');
+    const { getByTestId } = render(
+      <SidebarOutsetContext.Provider value={{ isVisible, setIsVisible }}>
+        <Sidebar />
+      </SidebarOutsetContext.Provider>,
+    );
+    const brandIcon = getByTestId("chevron-icon");
     fireEvent.click(brandIcon);
 
     // assert

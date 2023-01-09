@@ -1,8 +1,8 @@
-import classNames from 'classnames';
+import classNames from "classnames";
 import React, { Children } from "react";
-import { useSidebarOutset } from '../containers/SidebarOutset';
+import { useSidebarOutset } from "../containers/SidebarOutset";
 import * as icon from "../images/icons/bmc-full-logo.svg";
-import { ChevronIcon } from './Icons';
+import { ChevronIcon } from "./Icons";
 
 interface Navigation {
   key: string;
@@ -25,17 +25,17 @@ const Sidebar: React.FC = () => {
 
   const toggleSidebar = () => {
     sidebarOutset.setIsVisible(!sidebarOutset.isVisible);
-  }
+  };
 
   return (
     <>
       <div className={cns.sidebar}>
         <div className={cns.brand}>
           CHRISTOPHER SANTOS
-
           <ChevronIcon
             className={cns.icon(sidebarOutset.isVisible)}
-            clickHandler={toggleSidebar} />
+            clickHandler={toggleSidebar}
+          />
         </div>
 
         <div className='flex flex-row h-screen'>
@@ -45,7 +45,11 @@ const Sidebar: React.FC = () => {
                 {Children.toArray(
                   menus.map(({ key, name }) => (
                     <>
-                      <li className="cursor-pointer" key={key} data-testid={key}>
+                      <li
+                        className="cursor-pointer"
+                        key={key}
+                        data-testid={key}
+                      >
                         {name}
                       </li>
                     </>
@@ -80,36 +84,32 @@ const Sidebar: React.FC = () => {
 function cn() {
   return {
     brand: classNames(
-      'flex',
-      'flex-row',
-      'font-big-shoulder',
-      'font-bold',
-      'items-center',
-      'pt-12',
-      'text-3xl',
+      "flex",
+      "flex-row",
+      "font-big-shoulder",
+      "font-bold",
+      "items-center",
+      "pt-12",
+      "text-3xl",
     ),
-    icon: (isVisible: boolean) => classNames(
-      'h-6',
-      'relative',
-      { 'rotate-180': isVisible },
-      'w-12',
-    ),
+    icon: (isVisible: boolean) =>
+      classNames("h-6", "relative", { "rotate-180": isVisible }, "w-12"),
     sidebar: classNames(
-      'bg-white',
-      'flex',
-      'flex-col',
-      'pl-8',
-      'h-screen',
-      'w-full',
+      "bg-white",
+      "flex",
+      "flex-col",
+      "pl-8",
+      "h-screen",
+      "w-full",
     ),
     support: classNames(
-      'content-center',
-      'flex',
-      'flex-col',
-      'flex-wrap',
-      'pb-12',
-      'pr-8',
-      'w-full',
+      "content-center",
+      "flex",
+      "flex-col",
+      "flex-wrap",
+      "pb-12",
+      "pr-8",
+      "w-full",
     ),
   };
 }
