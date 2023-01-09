@@ -1,6 +1,7 @@
-import { cleanup, render } from "@testing-library/react";
+import { cleanup, fireEvent, render } from "@testing-library/react";
 import React from "react";
 import rendeder from "react-test-renderer";
+import { SidebarOutsetContext } from "../../containers/SidebarOutset";
 import Sidebar from "../sidebar";
 
 afterEach(cleanup);
@@ -18,7 +19,7 @@ describe("Sidebar component", () => {
 
   it("displays correct brand name", () => {
     // arrange
-    const brandName = "XENON PHOTOGRAPHY";
+    const brandName = "CHRISTOPHER SANTOS";
 
     // act
     const { getByText } = render(<Sidebar />);
@@ -33,17 +34,24 @@ describe("Sidebar component", () => {
     const menus = getAllByTestId(menuTestID);
 
     // assert
-    expect(menus.length).toEqual(2);
+    expect(menus.length).toEqual(1);
     expect(menus[0].children[0].textContent).toEqual("About");
-    expect(menus[0].children[1].textContent).toEqual("Portfolio");
+    expect(menus[0].children[1].textContent).toEqual("Architecture");
   });
 
-  it("renders each item in the portfoliio menus array", () => {
+  it('toggles the sidebar when the brand icon is clicked', () => {
+    // assemble
+    const isVisible = false;
+    const setIsVisible = jest.fn();
+
     // act
-    const { getAllByTestId } = render(<Sidebar />);
-    const menus = getAllByTestId(menuTestID);
+    const { getByTestId } = render(<SidebarOutsetContext.Provider value={{ isVisible, setIsVisible }}>
+      <Sidebar />
+    </SidebarOutsetContext.Provider>);
+    const brandIcon = getByTestId('chevron-icon');
+    fireEvent.click(brandIcon);
 
     // assert
-    expect(menus[1].children.length).toEqual(7);
+    expect(setIsVisible).toHaveBeenCalledWith(true);
   });
 });

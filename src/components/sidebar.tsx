@@ -1,83 +1,76 @@
 import classNames from 'classnames';
 import React, { Children } from "react";
+import { useSidebarOutset } from '../containers/SidebarOutset';
 import * as icon from "../images/icons/bmc-full-logo.svg";
+import { ChevronIcon } from './Icons';
 
 interface Navigation {
   key: string;
   name: string;
-  menus?: Navigation[];
 }
 
 const Sidebar: React.FC = () => {
+  const sidebarOutset = useSidebarOutset();
   const cns = cn();
   const menus: Navigation[] = [
-    {
-      key: "about",
-      name: "About",
-    },
-    {
-      key: "portfolio",
-      name: "Portfolio",
-      menus: [
-        { key: "architecture", name: "Architecture" },
-        { key: "blackAndWhite", name: "Black and White" },
-        { key: "color", name: "Color" },
-        { key: "filmSimulation", name: "Film Simulation" },
-        { key: "gasStation", name: "Gas Station" },
-        { key: "lowKey", name: "Low-Key" },
-        { key: "uncategorized", name: "Uncategorized" },
-      ],
-    },
+    { key: "about", name: "About" },
+    { key: "architecture", name: "Architecture" },
+    { key: "blackAndWhite", name: "Black and White" },
+    { key: "color", name: "Color" },
+    { key: "filmSimulation", name: "Film Simulation" },
+    { key: "gasStation", name: "Gas Station" },
+    { key: "lowKey", name: "Low-Key" },
+    { key: "uncategorized", name: "Uncategorized" },
   ];
 
-  const listBuilder = (menus: Navigation[]) => (
-    <>
-      <ul className={cns.nav} data-testid="menu">
-        {Children.toArray(
-          menus.map(({ key, name, menus }) => (
-            <>
-              <li className={cns.menu} key={key} data-testid={key}>
-                {name}
-              </li>
-
-              {menus !== undefined && (
-                <div data-testid="sub-menu">{listBuilder(menus)}</div>
-              )}
-            </>
-          )),
-        )}
-      </ul>
-    </>
-  );
+  const toggleSidebar = () => {
+    sidebarOutset.setIsVisible(!sidebarOutset.isVisible);
+  }
 
   return (
     <>
       <div className={cns.sidebar}>
-        <div className={cns.stick}>
-          <div className={cns.brand} data-testid="brand">
-            XENON PHOTOGRAPHY
+        <div className={cns.brand}>
+          CHRISTOPHER SANTOS
+
+          <ChevronIcon
+            className={cns.icon(sidebarOutset.isVisible)}
+            clickHandler={toggleSidebar} />
+        </div>
+
+        <div className='flex flex-row h-screen'>
+          <div className="flex flex-1 flex-col h-full overflow-hidden">
+            <div className="font-normal grow mt-5" data-testid="navigation">
+              <ul className="leading-8 list-none" data-testid="menu">
+                {Children.toArray(
+                  menus.map(({ key, name }) => (
+                    <>
+                      <li className="cursor-pointer" key={key} data-testid={key}>
+                        {name}
+                      </li>
+                    </>
+                  )),
+                )}
+              </ul>
+            </div>
+
+            <a
+              className={cns.support}
+              href="https://www.buymeacoffee.com/xenon.photo"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                className="w-32"
+                src={icon.default}
+                alt="Buy me a coffee icon"
+              />
+
+              <span className="mt-1 text-center text-xs">
+                © {new Date().getFullYear()}
+              </span>
+            </a>
           </div>
-
-          <div className={cns.navContainer} data-testid="navigation">
-            {listBuilder(menus)}
-          </div>
-
-          <a
-            className={cns.support}
-            href="https://www.buymeacoffee.com/xenon.photo"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <img
-              className={cns.buyMeACoffee}
-              src={icon.default}
-              alt="Buy me a coffee icon"
-            />
-
-            <span className={cns.copyright}>
-              © {new Date().getFullYear()}
-            </span>
-          </a>
         </div>
       </div>
     </>
@@ -87,51 +80,36 @@ const Sidebar: React.FC = () => {
 function cn() {
   return {
     brand: classNames(
+      'flex',
+      'flex-row',
+      'font-big-shoulder',
       'font-bold',
-      'pb-c1',
-      'px-c1',
-      'pt-c2',
-      'text-lg',
-      'tracking-wider',
+      'items-center',
+      'pt-12',
+      'text-3xl',
     ),
-    buyMeACoffee: classNames(
-      'w-1/2',
-    ),
-    copyright: classNames(
-      'mt-1',
-      'text-center',
-      'text-xs',
-    ),
-    menu: classNames(
-      'cursor-pointer',
-    ),
-    nav: classNames(
-      'leading-10',
-      'list-none',
-      '[&_ul]:px-5',
-    ),
-    navContainer: classNames(
-      'font-normal',
-      'grow',
-      'px-c1',
+    icon: (isVisible: boolean) => classNames(
+      'h-6',
+      'relative',
+      { 'rotate-180': isVisible },
+      'w-12',
     ),
     sidebar: classNames(
-      'h-auto',
-      'w-80',
-    ),
-    stick: classNames(
+      'bg-white',
       'flex',
       'flex-col',
+      'pl-8',
       'h-screen',
-      'sticky',
-      'top-0',
+      'w-full',
     ),
     support: classNames(
       'content-center',
       'flex',
       'flex-col',
       'flex-wrap',
-      'pb-c1',
+      'pb-12',
+      'pr-8',
+      'w-full',
     ),
   };
 }

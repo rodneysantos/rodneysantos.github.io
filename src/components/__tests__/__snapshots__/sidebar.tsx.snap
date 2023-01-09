@@ -2,108 +2,110 @@
 
 exports[`Sidebar component renders correctly 1`] = `
 <div
-  className="h-auto w-80"
+  className="bg-white flex flex-col pl-8 h-screen w-full"
 >
   <div
-    className="flex flex-col h-screen sticky top-0"
+    className="flex flex-row font-big-shoulder font-bold items-center pt-12 text-3xl"
+  >
+    CHRISTOPHER SANTOS
+    <svg
+      className="h-6 relative w-12"
+      data-testid="chevron-icon"
+      fill="currentColor"
+      onClick={[Function]}
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+        fillRule="evenodd"
+      />
+    </svg>
+  </div>
+  <div
+    className="flex flex-row h-screen"
   >
     <div
-      className="font-bold pb-c1 px-c1 pt-c2 text-lg tracking-wider"
-      data-testid="brand"
+      className="flex flex-1 flex-col h-full overflow-hidden"
     >
-      XENON PHOTOGRAPHY
-    </div>
-    <div
-      className="font-normal grow px-c1"
-      data-testid="navigation"
-    >
-      <ul
-        className="leading-10 list-none [&_ul]:px-5"
-        data-testid="menu"
+      <div
+        className="font-normal grow mt-5"
+        data-testid="navigation"
       >
-        <li
-          className="cursor-pointer"
-          data-testid="about"
+        <ul
+          className="leading-8 list-none"
+          data-testid="menu"
         >
-          About
-        </li>
-        <li
-          className="cursor-pointer"
-          data-testid="portfolio"
-        >
-          Portfolio
-        </li>
-        <div
-          data-testid="sub-menu"
-        >
-          <ul
-            className="leading-10 list-none [&_ul]:px-5"
-            data-testid="menu"
+          <li
+            className="cursor-pointer"
+            data-testid="about"
           >
-            <li
-              className="cursor-pointer"
-              data-testid="architecture"
-            >
-              Architecture
-            </li>
-            <li
-              className="cursor-pointer"
-              data-testid="blackAndWhite"
-            >
-              Black and White
-            </li>
-            <li
-              className="cursor-pointer"
-              data-testid="color"
-            >
-              Color
-            </li>
-            <li
-              className="cursor-pointer"
-              data-testid="filmSimulation"
-            >
-              Film Simulation
-            </li>
-            <li
-              className="cursor-pointer"
-              data-testid="gasStation"
-            >
-              Gas Station
-            </li>
-            <li
-              className="cursor-pointer"
-              data-testid="lowKey"
-            >
-              Low-Key
-            </li>
-            <li
-              className="cursor-pointer"
-              data-testid="uncategorized"
-            >
-              Uncategorized
-            </li>
-          </ul>
-        </div>
-      </ul>
-    </div>
-    <a
-      className="content-center flex flex-col flex-wrap pb-c1"
-      href="https://www.buymeacoffee.com/xenon.photo"
-      rel="noreferrer"
-      target="_blank"
-    >
-      <img
-        alt="Buy me a coffee icon"
-        className="w-1/2"
-        src={{}}
-      />
-      <span
-        className="mt-1 text-center text-xs"
+            About
+          </li>
+          <li
+            className="cursor-pointer"
+            data-testid="architecture"
+          >
+            Architecture
+          </li>
+          <li
+            className="cursor-pointer"
+            data-testid="blackAndWhite"
+          >
+            Black and White
+          </li>
+          <li
+            className="cursor-pointer"
+            data-testid="color"
+          >
+            Color
+          </li>
+          <li
+            className="cursor-pointer"
+            data-testid="filmSimulation"
+          >
+            Film Simulation
+          </li>
+          <li
+            className="cursor-pointer"
+            data-testid="gasStation"
+          >
+            Gas Station
+          </li>
+          <li
+            className="cursor-pointer"
+            data-testid="lowKey"
+          >
+            Low-Key
+          </li>
+          <li
+            className="cursor-pointer"
+            data-testid="uncategorized"
+          >
+            Uncategorized
+          </li>
+        </ul>
+      </div>
+      <a
+        className="content-center flex flex-col flex-wrap pb-12 pr-8 w-full"
+        href="https://www.buymeacoffee.com/xenon.photo"
+        rel="noreferrer"
+        target="_blank"
       >
-        © 
-        2023
-      </span>
-    </a>
+        <img
+          alt="Buy me a coffee icon"
+          className="w-32"
+          src={{}}
+        />
+        <span
+          className="mt-1 text-center text-xs"
+        >
+          © 
+          2023
+        </span>
+      </a>
+    </div>
   </div>
 </div>
 `;

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SidebarOutset renders correctly 1`] = `
+<div
+  className="flex fixed font-dosis h-screen transition-transform -translate-x-[90%] lg:duration-200 3xl:duration-300"
+>
+  <div
+    data-testid="test-element"
+  >
+    Test Element
+  </div>
+</div>
+`;

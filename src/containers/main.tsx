@@ -4,7 +4,7 @@ import Sidebar from "../components/sidebar";
 import data, { PhotoAsset } from "../db";
 import Gallery, { GalleryPhoto } from "./gallery";
 import { useGallery, withGallery } from "./gallery.context";
-import classNames from 'classnames';
+import SidebarOutset from "./SidebarOutset";
 
 interface ModuleType {
   id: string;
@@ -14,7 +14,6 @@ interface ModuleType {
 const Main: React.FC = () => {
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
   const gallery = useGallery();
-  const cns = cn();
 
   useEffect(() => {
     loadGallery(data)
@@ -41,10 +40,15 @@ const Main: React.FC = () => {
     gallery.setSelectedPhoto("");
   };
 
-  return (
-    <main className={cns.main}>
-      <Sidebar />
-      <Gallery photos={photos} onPhotoSelect={onPhotoSelect} />
+  return <React.StrictMode>
+    <main className="flex flex-col lg:flex-row">
+      <div className="flex-auto">
+        <Gallery photos={photos} onPhotoSelect={onPhotoSelect} />
+      </div>
+
+      <SidebarOutset value={false}>
+        <Sidebar />
+      </SidebarOutset>
 
       <PhotoViewer
         src={gallery.selectedPhoto}
@@ -52,18 +56,7 @@ const Main: React.FC = () => {
         closeHandler={closePhotoViewer}
       />
     </main>
-  );
+  </React.StrictMode>
 };
-
-function cn() {
-  return {
-    main: classNames(
-      '320px-425px:flex-col',
-      'flex',
-      'flex-row',
-      'min-[360px]:max-[1023px]:flex-col',
-    ),
-  };
-}
 
 export default withGallery(Main);

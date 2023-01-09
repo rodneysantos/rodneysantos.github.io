@@ -1,7 +1,9 @@
-import { fireEvent, render } from '@testing-library/react';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import rendeder from "react-test-renderer";
 import PhotoViewer from '../photo-viewer';
+
+afterEach(cleanup);
 
 describe('PhotoViewer component', () => {
   const src = 'https://example.com/image.jpg';
