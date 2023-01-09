@@ -31,17 +31,6 @@ describe("PhotoViewer component", () => {
     expect(photoViewerElement).toBeInTheDocument();
   });
 
-  it("does not render the component when isVisible is false", () => {
-    // act
-    const { queryByTestId } = render(
-      <PhotoViewer isVisible={false} src={src} closeHandler={() => {}} />,
-    );
-    const photoViewerElement = queryByTestId("photo-viewer");
-
-    // assert
-    expect(photoViewerElement).not.toBeInTheDocument();
-  });
-
   it("renders the correct image src", () => {
     // act
     const { getByTestId } = render(

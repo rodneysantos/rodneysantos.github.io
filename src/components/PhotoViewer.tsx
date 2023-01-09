@@ -13,25 +13,23 @@ const PhotoViewer: React.FC<PhotoViewerProps> = memo(
 
     return (
       <>
-        {isVisible && (
-          <div
-            className={cns.background}
-            onClick={() => closeHandler()}
-            data-testid="photo-viewer"
-          >
-            <div className={cns.container}>
-              <span className={cns.close} data-testid="photo-viewer-close">
-                Close
-              </span>
-              <img
-                className={cns.img}
-                src={src}
-                alt=""
-                data-testid="photo-viewer-img"
-              />
-            </div>
+        <div
+          className={cns.background(isVisible)}
+          onClick={() => closeHandler()}
+          data-testid="photo-viewer"
+        >
+          <div className={cns.container}>
+            <span className={cns.close} data-testid="photo-viewer-close">
+              Close
+            </span>
+            <img
+              className="max-h-full max-w-full pointer-events-none"
+              src={src}
+              alt=""
+              data-testid="photo-viewer-img"
+            />
           </div>
-        )}
+        </div>
       </>
     );
   },
@@ -39,7 +37,20 @@ const PhotoViewer: React.FC<PhotoViewerProps> = memo(
 
 function cn() {
   return {
-    background: classNames("bg-white", "fixed", "h-full", "w-full"),
+    background: (isVisible: boolean) =>
+      classNames(
+        "bg-white",
+        "duration-500",
+        "fixed",
+        "h-full",
+        { "opacity-0": !isVisible },
+        { "pointer-events-none": !isVisible },
+        { "scale-75": !isVisible },
+        { "scale-100": isVisible },
+        "transition-all",
+        "w-full",
+        "will-change-auto",
+      ),
     close: classNames(
       "absolute",
       "cursor-pointer",
@@ -53,9 +64,8 @@ function cn() {
       "h-full",
       "items-center",
       "justify-center",
-      "p-c1",
+      "p-4",
     ),
-    img: classNames("max-h-full", "max-w-full"),
   };
 }
 

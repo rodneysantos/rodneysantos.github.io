@@ -86,6 +86,7 @@ function cn() {
       "opacity-0",
       "photo",
       "w-full",
+      "will-change-transform",
     ),
   };
 }
