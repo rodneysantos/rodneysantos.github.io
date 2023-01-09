@@ -2,7 +2,7 @@
 
 exports[`Gallery component renders correctly 1`] = `
 <div
-  className="1024px:gap-10 2560px:gap-20 auto-rows-[minmax(min-content,_max-content)] gap-12 grid grid-cols-3 min-[360px]:max-[1023px]:grid-cols-2 min-[1280px]:max-[1919px]:gap-[3.25rem] min-[1440px]:max-[1920px]:gap-16 py-12 pr-12"
+  className="auto-rows-[minmax(min-content,_max-content)] gap-12 grid grid-col p-12 sm:grid-cols-2 lg:grid-cols-3 2xl:gap-14 2xl:p-14 3xl:gap-16 3xl:p-16 4xl:gap-24 4xl:p-24"
 >
   <img
     alt=""
