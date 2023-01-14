@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import PhotoViewer from "../components/PhotoViewer";
 import Sidebar from "../components/Sidebar";
+import { useQueryParams, withQueryParams } from "../contexts/QueryParamContext";
 import data, { PhotoAsset } from "../db";
 import Gallery, { GalleryPhoto } from "./Gallery";
-import { useGallery, withGallery } from "./contexts/GalleryContext";
 import SidebarOutset from "./SidebarOutset";
 
 interface ModuleType {
@@ -13,7 +13,8 @@ interface ModuleType {
 
 const Main: React.FC = () => {
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
-  const gallery = useGallery();
+  const [selectedPhoto, setSelectedPhoto] = useState<string>("");
+  const queryParams = useQueryParams();
 
   useEffect(() => {
     loadGallery(data)
@@ -33,11 +34,13 @@ const Main: React.FC = () => {
   };
 
   const onPhotoSelect = (photo: GalleryPhoto) => {
-    gallery.setSelectedPhoto(photo.src);
+    setSelectedPhoto(photo.src);
+    queryParams.setURIParams!({ photo: photo.src });
   };
 
   const closePhotoViewer = () => {
-    gallery.setSelectedPhoto("");
+    setSelectedPhoto("");
+    queryParams.setURIParams!({ photo: "" });
   };
 
   return (
@@ -52,8 +55,8 @@ const Main: React.FC = () => {
         </SidebarOutset>
 
         <PhotoViewer
-          src={gallery.selectedPhoto}
-          isVisible={gallery.selectedPhoto !== ""}
+          src={selectedPhoto}
+          isVisible={selectedPhoto !== ""}
           closeHandler={closePhotoViewer}
         />
       </main>
@@ -61,4 +64,4 @@ const Main: React.FC = () => {
   );
 };
 
-export default withGallery(Main);
+export default withQueryParams(Main);

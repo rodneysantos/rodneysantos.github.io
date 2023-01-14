@@ -12,12 +12,11 @@ interface SidebarOutsetProps {
 
 interface SidebarOutsetContextProps {
   isVisible: boolean;
-  setIsVisible: (val: boolean) => void;
+  setIsVisible?: (val: boolean) => void;
 }
 
 export const SidebarOutsetContext = createContext<SidebarOutsetContextProps>({
   isVisible: false,
-  setIsVisible: () => {},
 });
 
 export const useSidebarOutset = () => useContext(SidebarOutsetContext);

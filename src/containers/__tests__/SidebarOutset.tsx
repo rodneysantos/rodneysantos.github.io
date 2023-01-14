@@ -76,7 +76,7 @@ describe("SidebarOutset", () => {
         <div>
           <span data-testid="is-visible">{isVisible.toString()}</span>
           <button
-            onClick={() => setIsVisible(true)}
+            onClick={() => setIsVisible!(true)}
             data-testid="set-is-visible"
           />
         </div>

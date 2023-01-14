@@ -26,7 +26,7 @@ describe("Gallery component", () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it("should render the correct number of photos", () => {
+  it("renders the correct number of photos", () => {
     // act
     const { getAllByRole } = render(
       <Gallery photos={photos} onPhotoSelect={() => {}} />,
@@ -48,7 +48,7 @@ describe("Gallery component", () => {
     });
   });
 
-  it("should call the onPhotoSelect callback when a photo is clicked", () => {
+  it("calls the onPhotoSelect callback when a photo is clicked", () => {
     // arrange
     const onPhotoSelect = jest.fn();
     const photos = [{ id: "1", src: "photo1.jpg" }];

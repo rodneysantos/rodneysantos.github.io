@@ -24,7 +24,7 @@ const Sidebar: React.FC = () => {
   ];
 
   const toggleSidebar = () => {
-    sidebarOutset.setIsVisible(!sidebarOutset.isVisible);
+    sidebarOutset.setIsVisible!(!sidebarOutset.isVisible);
   };
 
   return (

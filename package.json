@@ -17,8 +17,7 @@
     "prepare": "husky install",
     "serve": "gatsby serve",
     "start": "gatsby develop",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
+    "test": "jest --coverage",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
