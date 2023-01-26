@@ -14,6 +14,12 @@
     font-weight: 400;
 }
 
+@font-face {
+    font-family: dosis;
+    src: url(../../fonts/dosis-medium.ttf) format('truetype');
+    font-weight: 500;
+}
+
 html,
 body {
     @apply text-base;

@@ -1,4 +1,5 @@
 module.exports = {
+  clearMocks: true,
   transform: {
     "^.+\\.[jt]sx?$": "<rootDir>/jest-preprocess.js",
   },
