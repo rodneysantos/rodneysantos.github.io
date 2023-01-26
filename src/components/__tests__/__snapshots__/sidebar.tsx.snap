@@ -7,7 +7,21 @@ exports[`Sidebar component renders correctly 1`] = `
   <div
     className="flex flex-row font-big-shoulder font-bold items-center pt-12 text-3xl"
   >
-    CHRISTOPHER SANTOS
+    <div
+      className="leading-6"
+    >
+      <span
+        className="tracking-wider"
+      >
+        RODNEY SANTOS
+      </span>
+      <br />
+      <span
+        className="font-dosis text-base tracking-[0.48rem]"
+      >
+        PHOTOGRAPHY
+      </span>
+    </div>
     <svg
       className="h-6 relative w-12"
       data-testid="chevron-icon"
@@ -30,7 +44,7 @@ exports[`Sidebar component renders correctly 1`] = `
       className="flex flex-1 flex-col h-full overflow-hidden"
     >
       <div
-        className="font-normal grow mt-5"
+        className="font-medium grow mt-5"
         data-testid="navigation"
       >
         <ul
@@ -43,47 +57,43 @@ exports[`Sidebar component renders correctly 1`] = `
           >
             About
           </li>
+          <hr
+            className="border-slate-700 my-3 w-c21/24"
+          />
           <li
             className="cursor-pointer"
             data-testid="architecture"
+            onClick={[Function]}
           >
             Architecture
           </li>
           <li
             className="cursor-pointer"
-            data-testid="blackAndWhite"
+            data-testid="black-and-white"
+            onClick={[Function]}
           >
             Black and White
           </li>
           <li
             className="cursor-pointer"
             data-testid="color"
+            onClick={[Function]}
           >
             Color
           </li>
           <li
             className="cursor-pointer"
-            data-testid="filmSimulation"
+            data-testid="film-simulation"
+            onClick={[Function]}
           >
             Film Simulation
           </li>
           <li
             className="cursor-pointer"
-            data-testid="gasStation"
-          >
-            Gas Station
-          </li>
-          <li
-            className="cursor-pointer"
-            data-testid="lowKey"
+            data-testid="low-key"
+            onClick={[Function]}
           >
             Low-Key
-          </li>
-          <li
-            className="cursor-pointer"
-            data-testid="uncategorized"
-          >
-            Uncategorized
           </li>
         </ul>
       </div>

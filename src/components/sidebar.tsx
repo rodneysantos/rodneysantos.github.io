@@ -2,36 +2,50 @@ import classNames from "classnames";
 import React, { Children } from "react";
 import { useSidebarOutset } from "../containers/SidebarOutset";
 import * as icon from "../images/icons/bmc-full-logo.svg";
+import { Categories, Menu } from "../types";
 import { ChevronIcon } from "./Icons";
 
 interface Navigation {
-  key: string;
+  key: Categories | Menu;
   name: string;
 }
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  categorySelectedHandler: (keyword: Categories) => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ categorySelectedHandler }) => {
   const sidebarOutset = useSidebarOutset();
   const cns = cn();
-  const menus: Navigation[] = [
-    { key: "about", name: "About" },
+  const links: Navigation[] = [{ key: "about", name: "About" }];
+  const keywords: Navigation[] = [
     { key: "architecture", name: "Architecture" },
-    { key: "blackAndWhite", name: "Black and White" },
+    { key: "black-and-white", name: "Black and White" },
     { key: "color", name: "Color" },
-    { key: "filmSimulation", name: "Film Simulation" },
-    { key: "gasStation", name: "Gas Station" },
-    { key: "lowKey", name: "Low-Key" },
-    { key: "uncategorized", name: "Uncategorized" },
+    { key: "film-simulation", name: "Film Simulation" },
+    { key: "low-key", name: "Low-Key" },
   ];
 
   const toggleSidebar = () => {
     sidebarOutset.setIsVisible!(!sidebarOutset.isVisible);
   };
 
+  function toggleKeyword(category: Categories) {
+    categorySelectedHandler(category);
+  }
+
   return (
     <>
       <div className={cns.sidebar}>
         <div className={cns.brand}>
-          CHRISTOPHER SANTOS
+          <div className="leading-6">
+            <span className="tracking-wider">RODNEY SANTOS</span>
+            <br />
+            <span className="font-dosis text-base tracking-[0.48rem]">
+              PHOTOGRAPHY
+            </span>
+          </div>
+
           <ChevronIcon
             className={cns.icon(sidebarOutset.isVisible)}
             clickHandler={toggleSidebar}
@@ -40,19 +54,28 @@ const Sidebar: React.FC = () => {
 
         <div className='flex flex-row h-screen'>
           <div className="flex flex-1 flex-col h-full overflow-hidden">
-            <div className="font-normal grow mt-5" data-testid="navigation">
+            <div className="font-medium grow mt-5" data-testid="navigation">
               <ul className="leading-8 list-none" data-testid="menu">
                 {Children.toArray(
-                  menus.map(({ key, name }) => (
-                    <>
-                      <li
-                        className="cursor-pointer"
-                        key={key}
-                        data-testid={key}
-                      >
-                        {name}
-                      </li>
-                    </>
+                  links.map(({ key, name }) => (
+                    <li className="cursor-pointer" key={key} data-testid={key}>
+                      {name}
+                    </li>
+                  )),
+                )}
+
+                <hr className="border-slate-700 my-3 w-c21/24" />
+
+                {Children.toArray(
+                  keywords.map(({ key, name }) => (
+                    <li
+                      className="cursor-pointer"
+                      key={key}
+                      data-testid={key}
+                      onClick={() => toggleKeyword(key as Categories)}
+                    >
+                      {name}
+                    </li>
                   )),
                 )}
               </ul>

@@ -3,11 +3,13 @@ import PhotoViewer from "../components/PhotoViewer";
 import Sidebar from "../components/Sidebar";
 import { useQueryParams, withQueryParams } from "../contexts/QueryParamContext";
 import data, { PhotoAsset } from "../db";
+import { Categories } from "../types";
 import Gallery, { GalleryPhoto } from "./Gallery";
 import SidebarOutset from "./SidebarOutset";
 
-interface ModuleType {
+interface PhotoModuleType {
   id: string;
+  keywords: string[];
   default: string;
 }
 
@@ -23,11 +25,15 @@ const Main: React.FC = () => {
   }, []);
 
   const loadGallery = async (photos: PhotoAsset[]) => {
-    const modules: ModuleType[] = await Promise.all(
-      photos.map(async (p) => ({
-        id: p.id,
-        ...(await import(`../images/${p.name}.webp`)),
-      })),
+    const modules = Promise.all(
+      photos.map(
+        async (p) =>
+          ({
+            id: p.id,
+            keywords: p.keywords,
+            ...(await import(`../images/${p.name}.webp`)),
+          }) as PhotoModuleType,
+      ),
     );
 
     return modules;
@@ -35,13 +41,17 @@ const Main: React.FC = () => {
 
   const onPhotoSelect = (photo: GalleryPhoto) => {
     setSelectedPhoto(photo.src);
-    queryParams.setURIParams!({ photo: photo.src });
+    queryParams.setPhoto!(photo.id);
   };
 
   const closePhotoViewer = () => {
     setSelectedPhoto("");
-    queryParams.setURIParams!({ photo: "" });
+    queryParams.setPhoto!("");
   };
+
+  function keywordSelectHandler(category: Categories) {
+    queryParams.toggleCategory!(category);
+  }
 
   return (
     <React.StrictMode>
@@ -51,7 +61,7 @@ const Main: React.FC = () => {
         </div>
 
         <SidebarOutset value={false}>
-          <Sidebar />
+          <Sidebar categorySelectedHandler={keywordSelectHandler} />
         </SidebarOutset>
 
         <PhotoViewer

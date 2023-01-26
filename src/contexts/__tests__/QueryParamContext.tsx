@@ -1,90 +1,175 @@
 import React, { useEffect } from "react";
-import { cleanup, fireEvent, render } from "@testing-library/react";
-import {
-  QueryParams,
-  useQueryParams,
-  withQueryParams,
-} from "../QueryParamContext";
-
-afterEach(cleanup);
+import { fireEvent, render } from "@testing-library/react";
+import { useQueryParams, withQueryParams } from "../QueryParamContext";
 
 describe("QueryParamContext", () => {
   let replaceStateSpy: jest.SpyInstance;
+  let locationHrefSpy: jest.SpyInstance;
 
   beforeEach(() => {
-    replaceStateSpy = jest.spyOn(globalThis.history, "replaceState");
+    const url = "http://localhost";
+    Object.defineProperty(window, "location", {
+      value: new URL(url),
+      configurable: true,
+    });
+    locationHrefSpy = jest.spyOn(window.location, "href", "get");
+    replaceStateSpy = jest.spyOn(history, "replaceState");
   });
 
   afterEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   it("calls the replaceState when setURIParams is called", () => {
-    // assemble
+    // arrange
     const Component = withQueryParams(
       renderTestComponent({ photo: "new-value" }),
     );
+    const { getByTestId } = render(<Component />);
 
     // act
-    const { getByTestId } = render(<Component />);
-    const btn = getByTestId("btn");
+    const btn = getByTestId("photo-btn");
     fireEvent.click(btn);
 
     // assert
-    expect(replaceStateSpy).toHaveBeenCalledWith(null, "", "?photo=test");
     expect(replaceStateSpy).toHaveBeenCalledWith(null, "", "?photo=new-value");
   });
 
-  it("appends multiple params when setURIParams is called", () => {
-    // assemble
-    const Component = withQueryParams(
-      renderTestComponent({
-        photo: "new-value",
-        categories: "bw,lowkey",
-      }),
-    );
-
-    // act
-    const { getByTestId } = render(<Component />);
-    const btn = getByTestId("btn");
-    fireEvent.click(btn);
-
-    // assert
-    expect(replaceStateSpy).toHaveBeenCalledWith(
-      null,
-      "",
-      "?photo=new-value&categories=bw%2Clowkey",
-    );
-  });
-
   it("removes query param when no value is assigned", () => {
-    // assemble
+    // arrange
     const Component = withQueryParams(renderTestComponent({ photo: "" }));
+    const { getByTestId } = render(<Component />);
 
     // act
-    const { getByTestId } = render(<Component />);
-    const btn = getByTestId("btn");
+    const btn = getByTestId("photo-btn");
     fireEvent.click(btn);
 
     // assert
     expect(replaceStateSpy).toHaveBeenCalledWith(null, "", "http://localhost/");
   });
 
-  function renderTestComponent(uriParams: Partial<QueryParams>): React.FC {
+  it("appends multiple params when setURIParams is called", () => {
+    // arrange
+    locationHrefSpy.mockReturnValueOnce(
+      "http://localhost/?photo=new-value&categories=bw",
+    );
+    const Component = withQueryParams(
+      renderTestComponent({ photo: "new-value", category: "bw" }),
+    );
+    const { getByTestId } = render(<Component />);
+    jest.spyOn(window.location, "href", "get");
+
+    // act
+    const photoBtn = getByTestId("photo-btn");
+    const categoryBtn = getByTestId("category-btn");
+    fireEvent.click(photoBtn);
+    fireEvent.click(categoryBtn);
+
+    // assert
+    expect(replaceStateSpy).toHaveBeenCalledWith(
+      null,
+      "",
+      "?photo=new-value&categories=bw",
+    );
+  });
+
+  it("sets the categories when toggleCategory is called", () => {
+    // arrange
+    const Component = withQueryParams(
+      renderTestComponent({ category: "low-key" }),
+    );
+    const { getByTestId } = render(<Component />);
+
+    // act
+    const btn = getByTestId("category-btn");
+    fireEvent.click(btn);
+
+    // assert
+    expect(replaceStateSpy).toHaveBeenCalledWith(
+      null,
+      "",
+      "?categories=low-key",
+    );
+  });
+
+  it("appends a category when another category is selected", () => {
+    // arrange
+    const Component = withQueryParams(
+      renderTestComponent(
+        { category: "low-key" },
+        { category: "architecture" },
+      ),
+    );
+    const { getByTestId } = render(<Component />);
+
+    // act
+    const btn = getByTestId("category-btn");
+    fireEvent.click(btn);
+
+    // assert
+    expect(replaceStateSpy).toHaveBeenCalledWith(
+      null,
+      "",
+      "?categories=architecture",
+    );
+    expect(replaceStateSpy).toHaveBeenCalledWith(
+      null,
+      "",
+      "?categories=architecture%2Clow-key",
+    );
+  });
+
+  it("removes the category when it's already selected", () => {
+    // arrange
+    const Component = withQueryParams(
+      renderTestComponent({ category: "low-key" }, { category: "low-key" }),
+    );
+    const { getByTestId } = render(<Component />);
+
+    // act
+    const btn = getByTestId("category-btn");
+    fireEvent.click(btn);
+
+    // assert
+    expect(replaceStateSpy).toHaveBeenCalledWith(
+      null,
+      "",
+      "?categories=low-key",
+    );
+    expect(replaceStateSpy).toHaveBeenCalledWith(null, "", "http://localhost/");
+  });
+
+  function renderTestComponent(
+    uriParams: Partial<{ photo: string; category: string }>,
+    defaultParams: Partial<{ photo: string; category: string }> = {},
+  ): React.FC {
     return () => {
       const queryParam = useQueryParams();
 
       useEffect(() => {
-        queryParam.setURIParams!({ photo: "test" });
+        if (defaultParams.category !== undefined) {
+          queryParam.toggleCategory!(defaultParams.category);
+        }
+
+        if (defaultParams.photo !== undefined) {
+          queryParam.setPhoto!(defaultParams.photo);
+        }
       }, []);
 
       return (
         <>
           <button
-            data-testid="btn"
-            onClick={() => queryParam.setURIParams!(uriParams)}
+            data-testid="photo-btn"
+            onClick={() => queryParam.setPhoto!(uriParams.photo!)}
           >
-            test
+            Photo
+          </button>
+
+          <button
+            data-testid="category-btn"
+            onClick={() => queryParam.toggleCategory!(uriParams.category!)}
+          >
+            Category
           </button>
         </>
       );
