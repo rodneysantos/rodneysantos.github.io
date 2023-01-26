@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import React from "react";
 import rendeder from "react-test-renderer";
 import Gallery from "../Gallery";
@@ -6,8 +6,6 @@ import Gallery from "../Gallery";
 jest.mock("../gallery.module.css", () => ({
   photo: "test",
 }));
-
-afterEach(cleanup);
 
 describe("Gallery component", () => {
   const photos = [

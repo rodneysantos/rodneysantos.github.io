@@ -1,9 +1,7 @@
-import { cleanup, fireEvent, render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import React from "react";
 import rendeder from "react-test-renderer";
 import SidebarOutset, { useSidebarOutset } from "../SidebarOutset";
-
-afterEach(cleanup);
 
 describe("SidebarOutset", () => {
   it("renders correctly", () => {
