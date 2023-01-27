@@ -2,19 +2,19 @@ import classNames from "classnames";
 import React, { Children } from "react";
 import { useSidebarOutset } from "../containers/SidebarOutset";
 import * as icon from "../images/icons/bmc-full-logo.svg";
-import { Categories, Menu } from "../types";
+import { Keywords, Menu } from "../types";
 import { ChevronIcon } from "./Icons";
 
 interface Navigation {
-  key: Categories | Menu;
+  key: Keywords | Menu;
   name: string;
 }
 
 interface SidebarProps {
-  categorySelectedHandler: (keyword: Categories) => void;
+  keywordSelectedHandler: (keyword: Keywords) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ categorySelectedHandler }) => {
+const Sidebar: React.FC<SidebarProps> = ({ keywordSelectedHandler }) => {
   const sidebarOutset = useSidebarOutset();
   const cns = cn();
   const links: Navigation[] = [{ key: "about", name: "About" }];
@@ -30,8 +30,8 @@ const Sidebar: React.FC<SidebarProps> = ({ categorySelectedHandler }) => {
     sidebarOutset.setIsVisible!(!sidebarOutset.isVisible);
   };
 
-  function toggleKeyword(category: Categories) {
-    categorySelectedHandler(category);
+  function toggleKeyword(keyword: Keywords) {
+    keywordSelectedHandler(keyword);
   }
 
   return (
@@ -72,7 +72,7 @@ const Sidebar: React.FC<SidebarProps> = ({ categorySelectedHandler }) => {
                       className="cursor-pointer"
                       key={key}
                       data-testid={key}
-                      onClick={() => toggleKeyword(key as Categories)}
+                      onClick={() => toggleKeyword(key as Keywords)}
                     >
                       {name}
                     </li>

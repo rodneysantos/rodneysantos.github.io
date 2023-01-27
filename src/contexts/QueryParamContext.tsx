@@ -2,19 +2,19 @@ import React, { createContext, useContext, useState } from "react";
 
 interface QueryParams {
   photo: string;
-  categories: string[];
+  keywords: string[];
 }
 
 interface QueryParamsContextProps {
   photo: string;
-  categories: string[];
+  keywords: string[];
   setPhoto?: (photo: string) => void;
-  toggleCategory?: (category: string) => void;
+  toggleKeyword?: (keyword: string) => void;
 }
 
 const QueryParamContext = createContext<QueryParamsContextProps>({
   photo: "",
-  categories: [],
+  keywords: [],
 });
 
 const useQueryParams = () => useContext(QueryParamContext);
@@ -24,7 +24,7 @@ type WithQueryParams = <T>(Component: React.FC<T>) => React.FC<T & {}>;
 const withQueryParams: WithQueryParams = (Component) => (props) => {
   const [queryParams, setQueryParams] = useState<QueryParams>({
     photo: "",
-    categories: [],
+    keywords: [],
   });
 
   function setPhoto(photo: string) {
@@ -41,32 +41,32 @@ const withQueryParams: WithQueryParams = (Component) => (props) => {
     replaceHistoryState(uri, searchParams);
   }
 
-  function toggleCategory(category: string) {
+  function toggleKeyword(keyword: string) {
     const [uri, params] = window.location.href.split("?");
     const searchParams = new URLSearchParams(params);
-    const categories = [...queryParams.categories];
+    const keywords = [...queryParams.keywords];
 
-    if (categories.includes(category)) {
-      const index = categories.indexOf(category);
-      categories.splice(index, 1);
+    if (keywords.includes(keyword)) {
+      const index = keywords.indexOf(keyword);
+      keywords.splice(index, 1);
     } else {
-      categories.push(category);
+      keywords.push(keyword);
     }
 
-    if (categories.length > 0) {
-      searchParams.set("categories", categories.join(","));
+    if (keywords.length > 0) {
+      searchParams.set("keywords", keywords.join(","));
     } else {
-      searchParams.delete("categories");
+      searchParams.delete("keywords");
     }
 
-    setQueryParams({ ...queryParams, categories });
+    setQueryParams({ ...queryParams, keywords });
     replaceHistoryState(uri, searchParams);
   }
 
   return (
     <>
       <QueryParamContext.Provider
-        value={{ photo: "", categories: [], setPhoto, toggleCategory }}
+        value={{ photo: "", keywords: [], setPhoto, toggleKeyword }}
       >
         <Component {...props} />
       </QueryParamContext.Provider>

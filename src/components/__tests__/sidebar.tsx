@@ -11,7 +11,7 @@ describe("Sidebar component", () => {
   it("renders correctly", () => {
     // arrange
     const tree = rendeder
-      .create(<Sidebar categorySelectedHandler={mockHandler} />)
+      .create(<Sidebar keywordSelectedHandler={mockHandler} />)
       .toJSON();
 
     // assert
@@ -22,7 +22,7 @@ describe("Sidebar component", () => {
     // arrange
     const brandName = "RODNEY SANTOS";
     const { getByText } = render(
-      <Sidebar categorySelectedHandler={mockHandler} />,
+      <Sidebar keywordSelectedHandler={mockHandler} />,
     );
 
     // assert
@@ -32,7 +32,7 @@ describe("Sidebar component", () => {
   it("renders each item in the root menus array", () => {
     // arrange
     const { getAllByTestId } = render(
-      <Sidebar categorySelectedHandler={mockHandler} />,
+      <Sidebar keywordSelectedHandler={mockHandler} />,
     );
 
     // act
@@ -50,7 +50,7 @@ describe("Sidebar component", () => {
     const setIsVisible = jest.fn();
     const { getByTestId } = render(
       <SidebarOutsetContext.Provider value={{ isVisible, setIsVisible }}>
-        <Sidebar categorySelectedHandler={mockHandler} />
+        <Sidebar keywordSelectedHandler={mockHandler} />
       </SidebarOutsetContext.Provider>,
     );
 
@@ -62,15 +62,15 @@ describe("Sidebar component", () => {
     expect(setIsVisible).toHaveBeenCalledWith(true);
   });
 
-  it("toggles a category when clicked", () => {
+  it("toggles a keyword when clicked", () => {
     // arrange
     const { getByTestId } = render(
-      <Sidebar categorySelectedHandler={mockHandler} />,
+      <Sidebar keywordSelectedHandler={mockHandler} />,
     );
 
     // act
-    const colorCategory = getByTestId("color");
-    fireEvent.click(colorCategory);
+    const colorKeyword = getByTestId("color");
+    fireEvent.click(colorKeyword);
 
     // assert
     expect(mockHandler).toHaveBeenCalledWith("color");

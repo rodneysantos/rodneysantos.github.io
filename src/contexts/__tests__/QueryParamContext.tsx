@@ -51,104 +51,93 @@ describe("QueryParamContext", () => {
   it("appends multiple params when setURIParams is called", () => {
     // arrange
     locationHrefSpy.mockReturnValueOnce(
-      "http://localhost/?photo=new-value&categories=bw",
+      "http://localhost/?photo=new-value&keywords=bw",
     );
     const Component = withQueryParams(
-      renderTestComponent({ photo: "new-value", category: "bw" }),
+      renderTestComponent({ photo: "new-value", keyword: "bw" }),
     );
     const { getByTestId } = render(<Component />);
     jest.spyOn(window.location, "href", "get");
 
     // act
     const photoBtn = getByTestId("photo-btn");
-    const categoryBtn = getByTestId("category-btn");
+    const keywordBtn = getByTestId("keyword-btn");
     fireEvent.click(photoBtn);
-    fireEvent.click(categoryBtn);
+    fireEvent.click(keywordBtn);
 
     // assert
     expect(replaceStateSpy).toHaveBeenCalledWith(
       null,
       "",
-      "?photo=new-value&categories=bw",
+      "?photo=new-value&keywords=bw",
     );
   });
 
-  it("sets the categories when toggleCategory is called", () => {
+  it("sets the keywords when toggleKeyword is called", () => {
     // arrange
     const Component = withQueryParams(
-      renderTestComponent({ category: "low-key" }),
+      renderTestComponent({ keyword: "low-key" }),
     );
     const { getByTestId } = render(<Component />);
 
     // act
-    const btn = getByTestId("category-btn");
+    const btn = getByTestId("keyword-btn");
+    fireEvent.click(btn);
+
+    // assert
+    expect(replaceStateSpy).toHaveBeenCalledWith(null, "", "?keywords=low-key");
+  });
+
+  it("appends a keyword when another keyword is selected", () => {
+    // arrange
+    const Component = withQueryParams(
+      renderTestComponent({ keyword: "low-key" }, { keyword: "architecture" }),
+    );
+    const { getByTestId } = render(<Component />);
+
+    // act
+    const btn = getByTestId("keyword-btn");
     fireEvent.click(btn);
 
     // assert
     expect(replaceStateSpy).toHaveBeenCalledWith(
       null,
       "",
-      "?categories=low-key",
+      "?keywords=architecture",
+    );
+    expect(replaceStateSpy).toHaveBeenCalledWith(
+      null,
+      "",
+      "?keywords=architecture%2Clow-key",
     );
   });
 
-  it("appends a category when another category is selected", () => {
+  it("removes the keyword when it's already selected", () => {
     // arrange
     const Component = withQueryParams(
-      renderTestComponent(
-        { category: "low-key" },
-        { category: "architecture" },
-      ),
+      renderTestComponent({ keyword: "low-key" }, { keyword: "low-key" }),
     );
     const { getByTestId } = render(<Component />);
 
     // act
-    const btn = getByTestId("category-btn");
+    const btn = getByTestId("keyword-btn");
     fireEvent.click(btn);
 
     // assert
-    expect(replaceStateSpy).toHaveBeenCalledWith(
-      null,
-      "",
-      "?categories=architecture",
-    );
-    expect(replaceStateSpy).toHaveBeenCalledWith(
-      null,
-      "",
-      "?categories=architecture%2Clow-key",
-    );
-  });
-
-  it("removes the category when it's already selected", () => {
-    // arrange
-    const Component = withQueryParams(
-      renderTestComponent({ category: "low-key" }, { category: "low-key" }),
-    );
-    const { getByTestId } = render(<Component />);
-
-    // act
-    const btn = getByTestId("category-btn");
-    fireEvent.click(btn);
-
-    // assert
-    expect(replaceStateSpy).toHaveBeenCalledWith(
-      null,
-      "",
-      "?categories=low-key",
-    );
+    expect(replaceStateSpy).toHaveBeenCalledWith(null, "", "?keywords=low-key");
     expect(replaceStateSpy).toHaveBeenCalledWith(null, "", "http://localhost/");
   });
 
   function renderTestComponent(
-    uriParams: Partial<{ photo: string; category: string }>,
-    defaultParams: Partial<{ photo: string; category: string }> = {},
+    uriParams: Partial<{ photo: string; keyword: string }>,
+    defaultParams: Partial<{ photo: string; keyword: string }> = {},
   ): React.FC {
     return () => {
       const queryParam = useQueryParams();
 
       useEffect(() => {
-        if (defaultParams.category !== undefined) {
-          queryParam.toggleCategory!(defaultParams.category);
+        if (defaultParams.keyword !== undefined) {
+          queryParam.toggleKeyword!(defaultParams.keyword);
         }
 
         if (defaultParams.photo !== undefined) {
@@ -166,10 +155,10 @@ describe("QueryParamContext", () => {
           </button>
 
           <button
-            data-testid="category-btn"
-            onClick={() => queryParam.toggleCategory!(uriParams.category!)}
+            data-testid="keyword-btn"
+            onClick={() => queryParam.toggleKeyword!(uriParams.keyword!)}
           >
-            Category
+            Keyword
           </button>
         </>
       );

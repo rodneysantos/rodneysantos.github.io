@@ -1,9 +1,9 @@
-import { Categories } from "./types";
+import { Keywords } from "./types";
 
 export interface PhotoAsset {
   id: string;
   name: string;
-  keywords: Categories[];
+  keywords: Keywords[];
 }
 
 export default [

@@ -1,4 +1,4 @@
-export type Categories =
+export type Keywords =
   | "architecture"
   | "black-and-white"
   | "color"

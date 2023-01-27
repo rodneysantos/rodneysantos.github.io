@@ -3,7 +3,7 @@ import PhotoViewer from "../components/PhotoViewer";
 import Sidebar from "../components/Sidebar";
 import { useQueryParams, withQueryParams } from "../contexts/QueryParamContext";
 import data, { PhotoAsset } from "../db";
-import { Categories } from "../types";
+import { Keywords } from "../types";
 import Gallery, { GalleryPhoto } from "./Gallery";
 import SidebarOutset from "./SidebarOutset";
 
@@ -49,8 +49,8 @@ const Main: React.FC = () => {
     queryParams.setPhoto!("");
   };
 
-  function keywordSelectHandler(category: Categories) {
-    queryParams.toggleCategory!(category);
+  function keywordSelectHandler(keyword: Keywords) {
+    queryParams.toggleKeyword!(keyword);
   }
 
   return (
@@ -61,7 +61,7 @@ const Main: React.FC = () => {
         </div>
 
         <SidebarOutset value={false}>
-          <Sidebar categorySelectedHandler={keywordSelectHandler} />
+          <Sidebar keywordSelectedHandler={keywordSelectHandler} />
         </SidebarOutset>
 
         <PhotoViewer
