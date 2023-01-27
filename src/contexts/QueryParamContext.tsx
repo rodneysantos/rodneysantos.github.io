@@ -1,15 +1,16 @@
 import React, { createContext, useContext, useState } from "react";
+import { Keyword } from "../types";
 
 interface QueryParams {
   photo: string;
-  keywords: string[];
+  keywords: Keyword[];
 }
 
 interface QueryParamsContextProps {
   photo: string;
-  keywords: string[];
+  keywords: Keyword[];
   setPhoto?: (photo: string) => void;
-  toggleKeyword?: (keyword: string) => void;
+  toggleKeyword?: (keyword: Keyword) => void;
 }
 
 const QueryParamContext = createContext<QueryParamsContextProps>({
@@ -41,7 +42,7 @@ const withQueryParams: WithQueryParams = (Component) => (props) => {
     replaceHistoryState(uri, searchParams);
   }
 
-  function toggleKeyword(keyword: string) {
+  function toggleKeyword(keyword: Keyword) {
     const [uri, params] = window.location.href.split("?");
     const searchParams = new URLSearchParams(params);
     const keywords = [...queryParams.keywords];
@@ -66,7 +67,12 @@ const withQueryParams: WithQueryParams = (Component) => (props) => {
   return (
     <>
       <QueryParamContext.Provider
-        value={{ photo: "", keywords: [], setPhoto, toggleKeyword }}
+        value={{
+          photo: queryParams.photo,
+          keywords: queryParams.keywords,
+          setPhoto,
+          toggleKeyword,
+        }}
       >
         <Component {...props} />
       </QueryParamContext.Provider>

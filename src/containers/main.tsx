@@ -3,7 +3,7 @@ import PhotoViewer from "../components/PhotoViewer";
 import Sidebar from "../components/Sidebar";
 import { useQueryParams, withQueryParams } from "../contexts/QueryParamContext";
 import data, { PhotoAsset } from "../db";
-import { Keywords } from "../types";
+import { Keyword } from "../types";
 import Gallery, { GalleryPhoto } from "./Gallery";
 import SidebarOutset from "./SidebarOutset";
 
@@ -20,7 +20,13 @@ const Main: React.FC = () => {
 
   useEffect(() => {
     loadGallery(data)
-      .then((modules) => modules.map((m) => ({ id: m.id, src: m.default })))
+      .then((modules) =>
+        modules.map((m) => ({
+          id: m.id,
+          src: m.default,
+          keywords: m.keywords as Keyword[],
+        })),
+      )
       .then((photos) => setPhotos(photos));
   }, []);
 
@@ -49,7 +55,7 @@ const Main: React.FC = () => {
     queryParams.setPhoto!("");
   };
 
-  function keywordSelectHandler(keyword: Keywords) {
+  function keywordSelectHandler(keyword: Keyword) {
     queryParams.toggleKeyword!(keyword);
   }
 
@@ -57,7 +63,11 @@ const Main: React.FC = () => {
     <React.StrictMode>
       <main className="flex flex-col lg:flex-row">
         <div className="flex-auto">
-          <Gallery photos={photos} onPhotoSelect={onPhotoSelect} />
+          <Gallery
+            keywords={queryParams.keywords}
+            photos={photos}
+            onPhotoSelect={onPhotoSelect}
+          />
         </div>
 
         <SidebarOutset value={false}>

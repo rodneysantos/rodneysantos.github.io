@@ -1,23 +1,30 @@
 import { fireEvent, render } from "@testing-library/react";
 import React from "react";
 import rendeder from "react-test-renderer";
-import Gallery from "../Gallery";
+import Gallery, { GalleryPhoto } from "../Gallery";
 
 jest.mock("../gallery.module.css", () => ({
   photo: "test",
 }));
 
 describe("Gallery component", () => {
-  const photos = [
-    { id: "1", src: "photo1.jpg" },
-    { id: "2", src: "photo2.jpg" },
-    { id: "3", src: "photo3.jpg" },
+  const onPhotoSelect = jest.fn();
+  const photos: GalleryPhoto[] = [
+    { id: "1", src: "photo1.jpg", keywords: ["black-and-white", "color"] },
+    { id: "2", src: "photo2.jpg", keywords: ["architecture", "color"] },
+    { id: "3", src: "photo3.jpg", keywords: ["color"] },
   ];
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("renders correctly", () => {
-    // act
+    // arrange
     const tree = rendeder
-      .create(<Gallery photos={photos} onPhotoSelect={() => {}} />)
+      .create(
+        <Gallery keywords={[]} photos={photos} onPhotoSelect={onPhotoSelect} />,
+      )
       .toJSON();
 
     // assert
@@ -25,9 +32,9 @@ describe("Gallery component", () => {
   });
 
   it("renders the correct number of photos", () => {
-    // act
+    // arrange
     const { getAllByRole } = render(
-      <Gallery photos={photos} onPhotoSelect={() => {}} />,
+      <Gallery keywords={[]} photos={photos} onPhotoSelect={onPhotoSelect} />,
     );
 
     // assert
@@ -35,9 +42,9 @@ describe("Gallery component", () => {
   });
 
   it("renders the images with the correct src attributes", () => {
-    // act
+    // arrange
     const { getAllByAltText } = render(
-      <Gallery photos={photos} onPhotoSelect={() => {}} />,
+      <Gallery keywords={[]} photos={photos} onPhotoSelect={onPhotoSelect} />,
     );
 
     // assert
@@ -48,16 +55,69 @@ describe("Gallery component", () => {
 
   it("calls the onPhotoSelect callback when a photo is clicked", () => {
     // arrange
-    const onPhotoSelect = jest.fn();
-    const photos = [{ id: "1", src: "photo1.jpg" }];
+    const { getByRole } = render(
+      <Gallery
+        keywords={[]}
+        photos={[photos[0]]}
+        onPhotoSelect={onPhotoSelect}
+      />,
+    );
 
     // act
-    const { getByRole } = render(
-      <Gallery photos={photos} onPhotoSelect={onPhotoSelect} />,
-    );
     fireEvent.click(getByRole("img"));
 
     // assert
-    expect(onPhotoSelect).toHaveBeenCalledWith({ id: "1", src: "photo1.jpg" });
+    expect(onPhotoSelect).toHaveBeenCalledWith({
+      id: "1",
+      src: "photo1.jpg",
+      keywords: ["black-and-white", "color"],
+    });
+  });
+
+  it("only displays one (1) photo when 'black-and-white' keyword is given", () => {
+    // arrange
+    const { getAllByRole } = render(
+      <Gallery
+        keywords={["black-and-white"]}
+        photos={photos}
+        onPhotoSelect={onPhotoSelect}
+      />,
+    );
+
+    // act
+    const images = getAllByRole("img");
+
+    // assert
+    expect(images.length).toEqual(1);
+  });
+
+  it("displays all photos when 'color' keyword is given", () => {
+    // arrange
+    const { getAllByRole } = render(
+      <Gallery
+        keywords={["color"]}
+        photos={photos}
+        onPhotoSelect={onPhotoSelect}
+      />,
+    );
+
+    // act
+    const images = getAllByRole("img");
+
+    // assert
+    expect(images.length).toEqual(3);
+  });
+
+  it("displays all photos when no keywords are given", () => {
+    // arrange
+    const { getAllByRole } = render(
+      <Gallery keywords={[]} photos={photos} onPhotoSelect={onPhotoSelect} />,
+    );
+
+    // act
+    const images = getAllByRole("img");
+
+    // assert
+    expect(images.length).toEqual(3);
   });
 });

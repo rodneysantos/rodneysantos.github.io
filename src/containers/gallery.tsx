@@ -1,20 +1,26 @@
 import classNames from "classnames";
 import { gsap } from "gsap";
 import React, { useEffect, useRef } from "react";
+import { Keyword } from "../types";
 
 export interface GalleryPhoto {
   id: string;
   src: string;
+  keywords: Keyword[];
 }
 
 interface GalleryProps {
+  keywords: Keyword[];
   photos: GalleryPhoto[];
   onPhotoSelect: (src: GalleryPhoto) => void;
 }
 
-const Gallery: React.FC<GalleryProps> = ({ photos, onPhotoSelect }) => {
+const Gallery: React.FC<GalleryProps> = ({
+  keywords,
+  photos,
+  onPhotoSelect,
+}) => {
   const root = useRef(null);
-  const cns = cn();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -23,11 +29,17 @@ const Gallery: React.FC<GalleryProps> = ({ photos, onPhotoSelect }) => {
     }, root);
 
     return () => ctx.revert();
-  }, [photos]);
+  }, [keywords, photos]);
+
+  const cns = cn();
+  const filteredImages =
+    keywords.length > 0
+      ? photos.filter((p) => p.keywords.some((k) => keywords.includes(k)))
+      : photos;
 
   return (
     <div ref={root} className={cns.gallery}>
-      {photos.map((photo) => {
+      {filteredImages.map((photo) => {
         return (
           <img
             key={photo.id}

@@ -1,4 +1,4 @@
-export type Keywords =
+export type Keyword =
   | "architecture"
   | "black-and-white"
   | "color"
