@@ -112,7 +112,7 @@ function cn() {
       "font-big-shoulder",
       "font-bold",
       "items-center",
-      "pt-12",
+      "pt-14",
       "text-3xl",
     ),
     icon: (isVisible: boolean) =>
