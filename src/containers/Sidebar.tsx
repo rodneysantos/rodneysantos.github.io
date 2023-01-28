@@ -1,12 +1,18 @@
 import classNames from "classnames";
-import React, { Children } from "react";
-import { useSidebarOutset } from "../containers/SidebarOutset";
+import React, { useState } from "react";
+import { ChevronIcon } from "../components/Icons";
 import * as icon from "../images/icons/bmc-full-logo.svg";
 import { Keyword, Menu } from "../types";
-import { ChevronIcon } from "./Icons";
+import { useSidebarOutset } from "./SidebarOutset";
+
+interface KeywordTag {
+  isSelected: boolean;
+  key: Keyword;
+  name: string;
+}
 
 interface Navigation {
-  key: Keyword | Menu;
+  key: Menu;
   name: string;
 }
 
@@ -15,23 +21,31 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ keywordSelectedHandler }) => {
+  const [keywords, setKeywords] = useState<KeywordTag[]>([
+    { key: "architecture", name: "Architecture", isSelected: false },
+    { key: "black-and-white", name: "Black and White", isSelected: false },
+    { key: "color", name: "Color", isSelected: false },
+    { key: "film-simulation", name: "Film Simulation", isSelected: false },
+    { key: "low-key", name: "Low-Key", isSelected: false },
+  ]);
   const sidebarOutset = useSidebarOutset();
-  const cns = cn();
   const links: Navigation[] = [{ key: "about", name: "About" }];
-  const keywords: Navigation[] = [
-    { key: "architecture", name: "Architecture" },
-    { key: "black-and-white", name: "Black and White" },
-    { key: "color", name: "Color" },
-    { key: "film-simulation", name: "Film Simulation" },
-    { key: "low-key", name: "Low-Key" },
-  ];
+  const cns = cn();
 
   const toggleSidebar = () => {
     sidebarOutset.setIsVisible!(!sidebarOutset.isVisible);
   };
 
-  function toggleKeyword(keyword: Keyword) {
-    keywordSelectedHandler(keyword);
+  function toggleKeyword(keyword: KeywordTag) {
+    setKeywords((outdatedKeywords) => {
+      const updatedKeywords = outdatedKeywords.map((k) => ({ ...k }));
+      const tag = updatedKeywords.find((k) => k.key === keyword.key)!;
+      tag.isSelected = !tag.isSelected;
+
+      return updatedKeywords;
+    });
+
+    keywordSelectedHandler(keyword.key as Keyword);
   }
 
   return (
@@ -56,28 +70,28 @@ const Sidebar: React.FC<SidebarProps> = ({ keywordSelectedHandler }) => {
           <div className="flex flex-1 flex-col h-full overflow-hidden">
             <div className="font-medium grow mt-5" data-testid="navigation">
               <ul className="leading-8 list-none" data-testid="menu">
-                {Children.toArray(
-                  links.map(({ key, name }) => (
-                    <li className="cursor-pointer" key={key} data-testid={key}>
-                      {name}
-                    </li>
-                  )),
-                )}
+                {links.map(({ key, name }) => (
+                  <li
+                    className="cursor-pointer pl-8"
+                    key={key}
+                    data-testid={key}
+                  >
+                    {name}
+                  </li>
+                ))}
 
-                <hr className="border-slate-700 my-3 w-c21/24" />
+                <hr className="border-slate-700 my-3 mx-8" />
 
-                {Children.toArray(
-                  keywords.map(({ key, name }) => (
-                    <li
-                      className="cursor-pointer"
-                      key={key}
-                      data-testid={key}
-                      onClick={() => toggleKeyword(key as Keyword)}
-                    >
-                      {name}
-                    </li>
-                  )),
-                )}
+                {keywords.map((keyword) => (
+                  <li
+                    className={cns.keyword(keyword.isSelected)}
+                    key={keyword.key}
+                    data-testid={keyword.key}
+                    onClick={() => toggleKeyword(keyword)}
+                  >
+                    {keyword.name}
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -112,19 +126,20 @@ function cn() {
       "font-big-shoulder",
       "font-bold",
       "items-center",
+      "pl-8",
       "pt-14",
       "text-3xl",
     ),
     icon: (isVisible: boolean) =>
       classNames("h-6", "relative", { "rotate-180": isVisible }, "w-12"),
-    sidebar: classNames(
-      "bg-white",
-      "flex",
-      "flex-col",
-      "pl-8",
-      "h-screen",
-      "w-full",
-    ),
+    keyword: (isSelected: boolean) =>
+      classNames(
+        { "bg-slate-900 px-2 text-slate-100": isSelected },
+        "cursor-pointer",
+        "mx-8",
+        "select-none",
+      ),
+    sidebar: classNames("bg-white", "flex", "flex-col", "h-screen", "w-full"),
     support: classNames(
       "content-center",
       "flex",

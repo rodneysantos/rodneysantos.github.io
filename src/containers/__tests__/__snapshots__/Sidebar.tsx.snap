@@ -2,10 +2,10 @@
 
 exports[`Sidebar component renders correctly 1`] = `
 <div
-  className="bg-white flex flex-col pl-8 h-screen w-full"
+  className="bg-white flex flex-col h-screen w-full"
 >
   <div
-    className="flex flex-row font-big-shoulder font-bold items-center pt-14 text-3xl"
+    className="flex flex-row font-big-shoulder font-bold items-center pl-8 pt-14 text-3xl"
   >
     <div
       className="leading-6"
@@ -52,44 +52,44 @@ exports[`Sidebar component renders correctly 1`] = `
           data-testid="menu"
         >
           <li
-            className="cursor-pointer"
+            className="cursor-pointer pl-8"
             data-testid="about"
           >
             About
           </li>
           <hr
-            className="border-slate-700 my-3 w-c21/24"
+            className="border-slate-700 my-3 mx-8"
           />
           <li
-            className="cursor-pointer"
+            className="cursor-pointer mx-8 select-none"
             data-testid="architecture"
             onClick={[Function]}
           >
             Architecture
           </li>
           <li
-            className="cursor-pointer"
+            className="cursor-pointer mx-8 select-none"
             data-testid="black-and-white"
             onClick={[Function]}
           >
             Black and White
           </li>
           <li
-            className="cursor-pointer"
+            className="cursor-pointer mx-8 select-none"
             data-testid="color"
             onClick={[Function]}
           >
             Color
           </li>
           <li
-            className="cursor-pointer"
+            className="cursor-pointer mx-8 select-none"
             data-testid="film-simulation"
             onClick={[Function]}
           >
             Film Simulation
           </li>
           <li
-            className="cursor-pointer"
+            className="cursor-pointer mx-8 select-none"
             data-testid="low-key"
             onClick={[Function]}
           >

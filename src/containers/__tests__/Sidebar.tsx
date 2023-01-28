@@ -1,7 +1,7 @@
 import { fireEvent, render } from "@testing-library/react";
 import React from "react";
 import rendeder from "react-test-renderer";
-import { SidebarOutsetContext } from "../../containers/SidebarOutset";
+import { SidebarOutsetContext } from "../SidebarOutset";
 import Sidebar from "../Sidebar";
 
 describe("Sidebar component", () => {
@@ -74,5 +74,6 @@ describe("Sidebar component", () => {
 
     // assert
     expect(mockHandler).toHaveBeenCalledWith("color");
+    expect(colorKeyword.className).toContain("bg-slate-900");
   });
 });

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PhotoViewer from "../components/PhotoViewer";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "./Sidebar";
 import { useQueryParams, withQueryParams } from "../contexts/QueryParamContext";
 import data, { PhotoAsset } from "../db";
 import { Keyword } from "../types";
