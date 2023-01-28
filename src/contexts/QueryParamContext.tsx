@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { Keyword } from "../types";
 
 interface QueryParams {
@@ -27,6 +27,12 @@ const withQueryParams: WithQueryParams = (Component) => (props) => {
     photo: "",
     keywords: [],
   });
+
+  useEffect(() => {
+    // setting the default keyword so that when the page loads,
+    // only B&W images are displayed.
+    toggleKeyword("black-and-white");
+  }, []);
 
   function setPhoto(photo: string) {
     const [uri, params] = window.location.href.split("?");

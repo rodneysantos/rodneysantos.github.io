@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
 import { fireEvent, render } from "@testing-library/react";
+import React from "react";
+import { Keyword } from "../../types";
 import { useQueryParams, withQueryParams } from "../QueryParamContext";
 
 describe("QueryParamContext", () => {
+  const url = "http://localhost/";
   let replaceStateSpy: jest.SpyInstance;
   let locationHrefSpy: jest.SpyInstance;
 
@@ -50,14 +52,14 @@ describe("QueryParamContext", () => {
 
   it("appends multiple params when setURIParams is called", () => {
     // arrange
-    locationHrefSpy.mockReturnValueOnce(
-      "http://localhost/?photo=new-value&keywords=bw",
-    );
+    locationHrefSpy
+      .mockReturnValueOnce(url)
+      .mockReturnValueOnce(`${url}?keywords=black-and-white`)
+      .mockReturnValue(`${url}?keywords=black-and-white&photo=new-value`);
     const Component = withQueryParams(
-      renderTestComponent({ photo: "new-value", keyword: "bw" }),
+      renderTestComponent({ photo: "new-value", keyword: "color" }),
     );
     const { getByTestId } = render(<Component />);
-    jest.spyOn(window.location, "href", "get");
 
     // act
     const photoBtn = getByTestId("photo-btn");
@@ -69,12 +71,25 @@ describe("QueryParamContext", () => {
     expect(replaceStateSpy).toHaveBeenCalledWith(
       null,
       "",
-      "?photo=new-value&keywords=bw",
+      "?keywords=black-and-white",
+    );
+    expect(replaceStateSpy).toHaveBeenCalledWith(
+      null,
+      "",
+      "?keywords=black-and-white&photo=new-value",
+    );
+    expect(replaceStateSpy).toHaveBeenCalledWith(
+      null,
+      "",
+      "?keywords=black-and-white%2Ccolor&photo=new-value",
     );
   });
 
   it("sets the keywords when toggleKeyword is called", () => {
     // arrange
+    locationHrefSpy
+      .mockReturnValueOnce(url)
+      .mockReturnValueOnce(`${url}?keywords=black-and-white`);
     const Component = withQueryParams(
       renderTestComponent({ keyword: "low-key" }),
     );
@@ -85,13 +100,20 @@ describe("QueryParamContext", () => {
     fireEvent.click(btn);
 
     // assert
-    expect(replaceStateSpy).toHaveBeenCalledWith(null, "", "?keywords=low-key");
+    expect(replaceStateSpy).toHaveBeenCalledWith(
+      null,
+      "",
+      "?keywords=black-and-white%2Clow-key",
+    );
   });
 
   it("appends a keyword when another keyword is selected", () => {
     // arrange
+    locationHrefSpy
+      .mockReturnValueOnce(url)
+      .mockReturnValueOnce(`${url}?keywords=black-and-white`);
     const Component = withQueryParams(
-      renderTestComponent({ keyword: "low-key" }, { keyword: "architecture" }),
+      renderTestComponent({ keyword: "low-key" }),
     );
     const { getByTestId } = render(<Component />);
 
@@ -103,19 +125,22 @@ describe("QueryParamContext", () => {
     expect(replaceStateSpy).toHaveBeenCalledWith(
       null,
       "",
-      "?keywords=architecture",
+      "?keywords=black-and-white",
     );
     expect(replaceStateSpy).toHaveBeenCalledWith(
       null,
       "",
-      "?keywords=architecture%2Clow-key",
+      "?keywords=black-and-white%2Clow-key",
     );
   });
 
   it("removes the keyword when it's already selected", () => {
     // arrange
+    locationHrefSpy
+      .mockReturnValueOnce(url)
+      .mockReturnValueOnce(`${url}?keywords=black-and-white`);
     const Component = withQueryParams(
-      renderTestComponent({ keyword: "low-key" }, { keyword: "low-key" }),
+      renderTestComponent({ keyword: "black-and-white" }),
     );
     const { getByTestId } = render(<Component />);
 
@@ -124,26 +149,19 @@ describe("QueryParamContext", () => {
     fireEvent.click(btn);
 
     // assert
-    expect(replaceStateSpy).toHaveBeenCalledWith(null, "", "?keywords=low-key");
+    expect(replaceStateSpy).toHaveBeenCalledWith(
+      null,
+      "",
+      "?keywords=black-and-white",
+    );
     expect(replaceStateSpy).toHaveBeenCalledWith(null, "", "http://localhost/");
   });
 
   function renderTestComponent(
-    uriParams: Partial<{ photo: string; keyword: string }>,
-    defaultParams: Partial<{ photo: string; keyword: string }> = {},
+    uriParams: Partial<{ photo: string; keyword: Keyword }>,
   ): React.FC {
     return () => {
       const queryParam = useQueryParams();
-
-      useEffect(() => {
-        if (defaultParams.keyword !== undefined) {
-          queryParam.toggleKeyword!(defaultParams.keyword);
-        }
-
-        if (defaultParams.photo !== undefined) {
-          queryParam.setPhoto!(defaultParams.photo);
-        }
-      }, []);
 
       return (
         <>
