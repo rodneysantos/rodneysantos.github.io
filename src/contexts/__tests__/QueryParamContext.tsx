@@ -5,7 +5,7 @@ import { useQueryParams, withQueryParams } from "../QueryParamContext";
 
 describe("QueryParamContext", () => {
   const url = "http://localhost/";
-  let replaceStateSpy: jest.SpyInstance;
+  let historySpy: jest.SpyInstance;
   let locationHrefSpy: jest.SpyInstance;
 
   beforeEach(() => {
@@ -15,7 +15,7 @@ describe("QueryParamContext", () => {
       configurable: true,
     });
     locationHrefSpy = jest.spyOn(window.location, "href", "get");
-    replaceStateSpy = jest.spyOn(history, "replaceState");
+    historySpy = jest.spyOn(history, "replaceState");
   });
 
   afterEach(() => {
@@ -34,7 +34,7 @@ describe("QueryParamContext", () => {
     fireEvent.click(btn);
 
     // assert
-    expect(replaceStateSpy).toHaveBeenCalledWith(null, "", "?photo=new-value");
+    expect(historySpy).toHaveBeenCalledWith(null, "", "?photo=new-value");
   });
 
   it("removes query param when no value is assigned", () => {
@@ -47,15 +47,14 @@ describe("QueryParamContext", () => {
     fireEvent.click(btn);
 
     // assert
-    expect(replaceStateSpy).toHaveBeenCalledWith(null, "", "http://localhost/");
+    expect(historySpy).toHaveBeenCalledWith(null, "", "http://localhost/");
   });
 
   it("appends multiple params when setURIParams is called", () => {
     // arrange
     locationHrefSpy
       .mockReturnValueOnce(url)
-      .mockReturnValueOnce(`${url}?keywords=black-and-white`)
-      .mockReturnValue(`${url}?keywords=black-and-white&photo=new-value`);
+      .mockReturnValue(`${url}?photo=new-value`);
     const Component = withQueryParams(
       renderTestComponent({ photo: "new-value", keyword: "color" }),
     );
@@ -68,28 +67,17 @@ describe("QueryParamContext", () => {
     fireEvent.click(keywordBtn);
 
     // assert
-    expect(replaceStateSpy).toHaveBeenCalledWith(
+    expect(historySpy).toHaveBeenCalledWith(null, "", "?photo=new-value");
+    expect(historySpy).toHaveBeenCalledWith(
       null,
       "",
-      "?keywords=black-and-white",
-    );
-    expect(replaceStateSpy).toHaveBeenCalledWith(
-      null,
-      "",
-      "?keywords=black-and-white&photo=new-value",
-    );
-    expect(replaceStateSpy).toHaveBeenCalledWith(
-      null,
-      "",
-      "?keywords=black-and-white%2Ccolor&photo=new-value",
+      "?photo=new-value&keywords=color",
     );
   });
 
   it("sets the keywords when toggleKeyword is called", () => {
     // arrange
-    locationHrefSpy
-      .mockReturnValueOnce(url)
-      .mockReturnValueOnce(`${url}?keywords=black-and-white`);
+    locationHrefSpy.mockReturnValue(url);
     const Component = withQueryParams(
       renderTestComponent({ keyword: "low-key" }),
     );
@@ -100,20 +88,17 @@ describe("QueryParamContext", () => {
     fireEvent.click(btn);
 
     // assert
-    expect(replaceStateSpy).toHaveBeenCalledWith(
-      null,
-      "",
-      "?keywords=black-and-white%2Clow-key",
-    );
+    expect(historySpy).toHaveBeenCalledWith(null, "", "?keywords=low-key");
   });
 
   it("appends a keyword when another keyword is selected", () => {
     // arrange
     locationHrefSpy
       .mockReturnValueOnce(url)
-      .mockReturnValueOnce(`${url}?keywords=black-and-white`);
+      .mockReturnValue(`${url}?keywords=color`);
     const Component = withQueryParams(
       renderTestComponent({ keyword: "low-key" }),
+      { photo: "", keywords: ["color"] },
     );
     const { getByTestId } = render(<Component />);
 
@@ -122,25 +107,20 @@ describe("QueryParamContext", () => {
     fireEvent.click(btn);
 
     // assert
-    expect(replaceStateSpy).toHaveBeenCalledWith(
+    expect(historySpy).toHaveBeenCalledWith(null, "", "?keywords=color");
+    expect(historySpy).toHaveBeenCalledWith(
       null,
       "",
-      "?keywords=black-and-white",
-    );
-    expect(replaceStateSpy).toHaveBeenCalledWith(
-      null,
-      "",
-      "?keywords=black-and-white%2Clow-key",
+      "?keywords=color%2Clow-key",
     );
   });
 
   it("removes the keyword when it's already selected", () => {
     // arrange
-    locationHrefSpy
-      .mockReturnValueOnce(url)
-      .mockReturnValueOnce(`${url}?keywords=black-and-white`);
+    locationHrefSpy.mockReturnValue(url);
     const Component = withQueryParams(
       renderTestComponent({ keyword: "black-and-white" }),
+      { photo: "", keywords: ["black-and-white"] },
     );
     const { getByTestId } = render(<Component />);
 
@@ -149,12 +129,12 @@ describe("QueryParamContext", () => {
     fireEvent.click(btn);
 
     // assert
-    expect(replaceStateSpy).toHaveBeenCalledWith(
+    expect(historySpy).toHaveBeenCalledWith(
       null,
       "",
       "?keywords=black-and-white",
     );
-    expect(replaceStateSpy).toHaveBeenCalledWith(null, "", "http://localhost/");
+    expect(historySpy).toHaveBeenCalledWith(null, "", "http://localhost/");
   });
 
   function renderTestComponent(
