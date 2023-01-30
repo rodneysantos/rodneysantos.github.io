@@ -3,6 +3,7 @@ import React from "react";
 import rendeder from "react-test-renderer";
 import { SidebarOutsetContext } from "../SidebarOutset";
 import Sidebar from "../Sidebar";
+import { withQueryParams } from "../../contexts/QueryParamContext";
 
 describe("Sidebar component", () => {
   const menuTestID = "menu";
@@ -74,6 +75,21 @@ describe("Sidebar component", () => {
 
     // assert
     expect(mockHandler).toHaveBeenCalledWith("color");
+    expect(colorKeyword.className).toContain("bg-slate-900");
+  });
+
+  it("highlights default keywords when provided", () => {
+    // arrange
+    const Component = withQueryParams(
+      () => <Sidebar keywordSelectedHandler={mockHandler} />,
+      { photo: "", keywords: ["color"] },
+    );
+    const { getByTestId } = render(<Component />);
+
+    // act
+    const colorKeyword = getByTestId("color");
+
+    // assert
     expect(colorKeyword.className).toContain("bg-slate-900");
   });
 });

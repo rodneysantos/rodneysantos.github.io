@@ -1,6 +1,7 @@
 import classNames from "classnames";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronIcon } from "../components/Icons";
+import { useQueryParams } from "../contexts/QueryParamContext";
 import * as icon from "../images/icons/bmc-full-logo.svg";
 import { Keyword, Menu } from "../types";
 import { useSidebarOutset } from "./SidebarOutset";
@@ -28,13 +29,32 @@ const Sidebar: React.FC<SidebarProps> = ({ keywordSelectedHandler }) => {
     { key: "film-simulation", name: "Film Simulation", isSelected: false },
     { key: "low-key", name: "Low-Key", isSelected: false },
   ]);
+  const queryParam = useQueryParams();
   const sidebarOutset = useSidebarOutset();
   const links: Navigation[] = [{ key: "about", name: "About" }];
   const cns = cn();
 
-  const toggleSidebar = () => {
+  useEffect(() => {
+    const defaultKeywords = queryParam.keywords;
+
+    if (defaultKeywords.length > 0) {
+      setKeywords((outdatedKeywords) => {
+        const updatedKeywords = outdatedKeywords.map((k) => {
+          if (defaultKeywords.includes(k.key)) {
+            return { ...k, isSelected: true };
+          }
+
+          return { ...k };
+        });
+
+        return updatedKeywords;
+      });
+    }
+  }, []);
+
+  function toggleSidebar() {
     sidebarOutset.setIsVisible!(!sidebarOutset.isVisible);
-  };
+  }
 
   function toggleKeyword(keyword: KeywordTag) {
     setKeywords((outdatedKeywords) => {
@@ -136,6 +156,7 @@ function cn() {
       classNames(
         { "bg-slate-900 px-2 text-slate-100": isSelected },
         "cursor-pointer",
+        "mt-1",
         "mx-8",
         "select-none",
       ),
