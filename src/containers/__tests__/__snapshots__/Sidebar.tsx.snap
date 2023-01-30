@@ -61,35 +61,35 @@ exports[`Sidebar component renders correctly 1`] = `
             className="border-slate-700 my-3 mx-8"
           />
           <li
-            className="cursor-pointer mt-1 mx-8 select-none"
+            className="cursor-pointer mt-1 mx-8 select-none transition-all will-change-contents will-change-transform"
             data-testid="architecture"
             onClick={[Function]}
           >
             Architecture
           </li>
           <li
-            className="cursor-pointer mt-1 mx-8 select-none"
+            className="cursor-pointer mt-1 mx-8 select-none transition-all will-change-contents will-change-transform"
             data-testid="black-and-white"
             onClick={[Function]}
           >
             Black and White
           </li>
           <li
-            className="cursor-pointer mt-1 mx-8 select-none"
+            className="cursor-pointer mt-1 mx-8 select-none transition-all will-change-contents will-change-transform"
             data-testid="color"
             onClick={[Function]}
           >
             Color
           </li>
           <li
-            className="cursor-pointer mt-1 mx-8 select-none"
+            className="cursor-pointer mt-1 mx-8 select-none transition-all will-change-contents will-change-transform"
             data-testid="film-simulation"
             onClick={[Function]}
           >
             Film Simulation
           </li>
           <li
-            className="cursor-pointer mt-1 mx-8 select-none"
+            className="cursor-pointer mt-1 mx-8 select-none transition-all will-change-contents will-change-transform"
             data-testid="low-key"
             onClick={[Function]}
           >

@@ -159,6 +159,9 @@ function cn() {
         "mt-1",
         "mx-8",
         "select-none",
+        "transition-all",
+        "will-change-contents",
+        "will-change-transform",
       ),
     sidebar: classNames("bg-white", "flex", "flex-col", "h-screen", "w-full"),
     support: classNames(
