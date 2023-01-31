@@ -94,7 +94,7 @@ const Sidebar: React.FC<SidebarProps> = ({ keywordSelectedHandler }) => {
               <ul className="leading-8 list-none" data-testid="menu">
                 {links.map(({ key, name }) => (
                   <li
-                    className="pl-8 cursor-pointer"
+                    className="pl-8 line-through cursor-pointer"
                     key={key}
                     data-testid={key}
                   >

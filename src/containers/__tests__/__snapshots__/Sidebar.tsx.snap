@@ -52,7 +52,7 @@ exports[`Sidebar component renders correctly 1`] = `
           data-testid="menu"
         >
           <li
-            className="pl-8 cursor-pointer"
+            className="pl-8 line-through cursor-pointer"
             data-testid="about"
           >
             About
