@@ -86,5 +86,5 @@ const Main: React.FC = () => {
 
 export default withQueryParams(Main, {
   photo: "",
-  keywords: ["black-and-white"],
+  keywords: ["black-and-white", "low-key"],
 });

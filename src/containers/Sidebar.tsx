@@ -70,7 +70,7 @@ const Sidebar: React.FC<SidebarProps> = ({ keywordSelectedHandler }) => {
 
   return (
     <>
-      <div className={cns.sidebar}>
+      <div className="flex flex-col w-full h-screen bg-white">
         <div className={cns.brand}>
           <div className="leading-6">
             <span className="tracking-wider">RODNEY SANTOS</span>
@@ -81,18 +81,20 @@ const Sidebar: React.FC<SidebarProps> = ({ keywordSelectedHandler }) => {
           </div>
 
           <ChevronIcon
-            className={cns.icon(sidebarOutset.isVisible)}
+            className={`h-6 relative ${{
+              "rotate-180": sidebarOutset.isVisible,
+            }} w-12`}
             clickHandler={toggleSidebar}
           />
         </div>
 
         <div className='flex flex-row h-screen'>
-          <div className="flex flex-1 flex-col h-full overflow-hidden">
-            <div className="font-medium grow mt-5" data-testid="navigation">
+          <div className="flex flex-col flex-1 h-full overflow-hidden">
+            <div className="mt-5 font-medium grow" data-testid="navigation">
               <ul className="leading-8 list-none" data-testid="menu">
                 {links.map(({ key, name }) => (
                   <li
-                    className="cursor-pointer pl-8"
+                    className="pl-8 cursor-pointer"
                     key={key}
                     data-testid={key}
                   >
@@ -100,7 +102,7 @@ const Sidebar: React.FC<SidebarProps> = ({ keywordSelectedHandler }) => {
                   </li>
                 ))}
 
-                <hr className="border-slate-700 my-3 mx-8" />
+                <hr className="mx-8 my-3 border-slate-700" />
 
                 {keywords.map((keyword) => (
                   <li
@@ -127,7 +129,7 @@ const Sidebar: React.FC<SidebarProps> = ({ keywordSelectedHandler }) => {
                 alt="Buy me a coffee icon"
               />
 
-              <span className="mt-1 text-center text-xs">
+              <span className="mt-1 text-xs text-center">
                 © {new Date().getFullYear()}
               </span>
             </a>
@@ -150,8 +152,6 @@ function cn() {
       "pt-14",
       "text-3xl",
     ),
-    icon: (isVisible: boolean) =>
-      classNames("h-6", "relative", { "rotate-180": isVisible }, "w-12"),
     keyword: (isSelected: boolean) =>
       classNames(
         { "bg-slate-900 px-2 text-slate-100": isSelected },
@@ -163,7 +163,6 @@ function cn() {
         "will-change-contents",
         "will-change-transform",
       ),
-    sidebar: classNames("bg-white", "flex", "flex-col", "h-screen", "w-full"),
     support: classNames(
       "content-center",
       "flex",

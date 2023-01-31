@@ -2,7 +2,7 @@
 
 exports[`Sidebar component renders correctly 1`] = `
 <div
-  className="bg-white flex flex-col h-screen w-full"
+  className="flex flex-col w-full h-screen bg-white"
 >
   <div
     className="flex flex-row font-big-shoulder font-bold items-center pl-8 pt-14 text-3xl"
@@ -23,7 +23,7 @@ exports[`Sidebar component renders correctly 1`] = `
       </span>
     </div>
     <svg
-      className="h-6 relative w-12"
+      className="h-6 relative [object Object] w-12"
       data-testid="chevron-icon"
       fill="currentColor"
       onClick={[Function]}
@@ -41,10 +41,10 @@ exports[`Sidebar component renders correctly 1`] = `
     className="flex flex-row h-screen"
   >
     <div
-      className="flex flex-1 flex-col h-full overflow-hidden"
+      className="flex flex-col flex-1 h-full overflow-hidden"
     >
       <div
-        className="font-medium grow mt-5"
+        className="mt-5 font-medium grow"
         data-testid="navigation"
       >
         <ul
@@ -52,13 +52,13 @@ exports[`Sidebar component renders correctly 1`] = `
           data-testid="menu"
         >
           <li
-            className="cursor-pointer pl-8"
+            className="pl-8 cursor-pointer"
             data-testid="about"
           >
             About
           </li>
           <hr
-            className="border-slate-700 my-3 mx-8"
+            className="mx-8 my-3 border-slate-700"
           />
           <li
             className="cursor-pointer mt-1 mx-8 select-none transition-all will-change-contents will-change-transform"
@@ -109,7 +109,7 @@ exports[`Sidebar component renders correctly 1`] = `
           src={{}}
         />
         <span
-          className="mt-1 text-center text-xs"
+          className="mt-1 text-xs text-center"
         >
           © 
           2023

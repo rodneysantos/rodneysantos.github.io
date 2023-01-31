@@ -8,6 +8,61 @@ export interface PhotoAsset {
 
 export default [
   {
+    id: "f674369d-8f70-4412-bb1c-f3063f886a23",
+    name: "DSCF7471",
+    keywords: ["black-and-white", "low-key"],
+  },
+  {
+    id: "e40a30fe-9412-4927-86a3-0b3306297f2b",
+    name: "DSCF0907",
+    keywords: ["black-and-white", "low-key"],
+  },
+  {
+    id: "c55530b1-1dc1-47a2-8126-05b383eadbd2",
+    name: "DSCF5972",
+    keywords: ["black-and-white", "low-key"],
+  },
+  {
+    id: "f1bae8b1-8f10-4fad-a4bf-308b6001ff10",
+    name: "DSCF7055",
+    keywords: ["black-and-white", "low-key"],
+  },
+  {
+    id: "f8f9a20e-59c5-4693-951e-d158b9d14d42",
+    name: "DSCF5907",
+    keywords: ["black-and-white", "low-key"],
+  },
+  {
+    id: "6906b212-c238-4f48-bada-f5f49a7ac22b",
+    name: "DSCF5948",
+    keywords: ["black-and-white", "low-key"],
+  },
+  {
+    id: "19ca2838-c5c1-4e31-8167-31671392fdd5",
+    name: "DSCF7418",
+    keywords: ["black-and-white", "low-key"],
+  },
+  {
+    id: "6532520f-0a0b-4dec-a0f0-a5a7a2662752",
+    name: "DSCF1916",
+    keywords: ["black-and-white", "low-key"],
+  },
+  {
+    id: "d5e3776a-b98c-4eb9-ac2c-352ef263694d",
+    name: "DSCF1936",
+    keywords: ["black-and-white", "low-key"],
+  },
+  {
+    id: "4ff52745-5336-44a1-9ae6-2403e9ac96e5",
+    name: "DSCF3259",
+    keywords: ["black-and-white"],
+  },
+  {
+    id: "7a1ce5a9-e09e-477d-9665-48089a6f148e",
+    name: "DSCF5703",
+    keywords: ["black-and-white"],
+  },
+  {
     id: "936DA01F-9ABD-4D9D-80C7-02AF85C822A8",
     name: "DSCF6525",
     keywords: ["architecture", "color"],
