@@ -8,6 +8,21 @@ import { withQueryParams } from "../../contexts/QueryParamContext";
 describe("Sidebar component", () => {
   const menuTestID = "menu";
   const mockHandler = jest.fn();
+  const url = "http://localhost/";
+  let locationHrefSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    const url = "http://localhost";
+    Object.defineProperty(window, "location", {
+      value: new URL(url),
+      configurable: true,
+    });
+    locationHrefSpy = jest.spyOn(window.location, "href", "get");
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   it("renders correctly", () => {
     // arrange
@@ -91,5 +106,21 @@ describe("Sidebar component", () => {
 
     // assert
     expect(colorKeyword.className).toContain("bg-slate-900");
+  });
+
+  it("highlights the keywords that are not in the default list when provided", () => {
+    // arrange
+    locationHrefSpy.mockReturnValue(`${url}/?keywords=architecture%2Ccolor`);
+    const Component = withQueryParams(
+      () => <Sidebar keywordSelectedHandler={mockHandler} />,
+      { photo: "", keywords: ["color"] },
+    );
+    const { getByTestId } = render(<Component />);
+
+    // act
+    const architectureKeyword = getByTestId("architecture");
+
+    // assert
+    expect(architectureKeyword.className).toContain("bg-slate-900");
   });
 });

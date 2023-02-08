@@ -2,6 +2,7 @@ import classNames from "classnames";
 import React, { useEffect, useState } from "react";
 import { ChevronIcon } from "../components/Icons";
 import { useQueryParams } from "../contexts/QueryParamContext";
+import { getURLSearchParams } from "../contexts/QueryParamContextHelper";
 import * as icon from "../images/icons/bmc-full-logo.svg";
 import { Keyword, Menu } from "../types";
 import { useSidebarOutset } from "./SidebarOutset";
@@ -35,27 +36,52 @@ const Sidebar: React.FC<SidebarProps> = ({ keywordSelectedHandler }) => {
   const cns = cn();
 
   useEffect(() => {
-    const defaultKeywords = queryParam.keywords;
+    const [, params] = getURLSearchParams();
+    let defaultKeywords: Keyword[] = [];
 
-    if (defaultKeywords.length > 0) {
-      setKeywords((outdatedKeywords) => {
-        const updatedKeywords = outdatedKeywords.map((k) => {
-          if (defaultKeywords.includes(k.key)) {
-            return { ...k, isSelected: true };
-          }
-
-          return { ...k };
-        });
-
-        return updatedKeywords;
-      });
+    if (params.get("keywords")) {
+      defaultKeywords = Array.from(
+        params.get("keywords")!.split(","),
+      ) as Keyword[];
+    } else {
+      defaultKeywords = queryParam.keywords;
     }
+
+    setKeywords((outdatedKeywords) =>
+      initKeywords(defaultKeywords, outdatedKeywords),
+    );
   }, []);
 
+  /**
+   * initKeywords initializes keywords by merging the outdated keywords with the default keywords.
+   * @param {Keyword[]} defaults - An array of default keywords.
+   * @param {KeywordTag[]} outdatedKeywords - An array of outdated keywords.
+   * @returns {KeywordTag[]} An array of initialized keywords with updated information.
+   */
+  function initKeywords(
+    defaults: Keyword[],
+    outdatedKeywords: KeywordTag[],
+  ): KeywordTag[] {
+    return outdatedKeywords.map((k) => {
+      if (defaults.includes(k.key)) {
+        return { ...k, isSelected: true };
+      }
+
+      return { ...k };
+    });
+  }
+
+  /**
+   * toggleSidebar toggles the visibility of the sidebar.
+   */
   function toggleSidebar() {
     sidebarOutset.setIsVisible!(!sidebarOutset.isVisible);
   }
 
+  /**
+   * toggleKeyword toggles the selection state of a keyword and updates the list of keywords.
+   * @param {KeywordTag} keyword - The keyword to toggle the selection state for.
+   */
   function toggleKeyword(keyword: KeywordTag) {
     setKeywords((outdatedKeywords) => {
       const updatedKeywords = outdatedKeywords.map((k) => ({ ...k }));

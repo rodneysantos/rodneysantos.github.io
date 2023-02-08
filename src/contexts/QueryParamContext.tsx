@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Keyword } from "../types";
+import { getURLSearchParams } from "./QueryParamContextHelper";
 
 interface QueryParams {
   photo: string;
@@ -33,14 +34,26 @@ const withQueryParams: WithQueryParams =
     });
 
     useEffect(() => {
-      // setting the default keyword so that when the page loads,
-      // only B&W images are displayed.
-      setURLSearchParams(defaults.keywords);
+      const [, searchParams] = getURLSearchParams();
+      const keywordsParam = searchParams.get("keywords");
+
+      if (keywordsParam === null) {
+        // setting the default keyword so that when the page loads,
+        // only B&W images are displayed.
+        setURLSearchParams(defaults.keywords);
+      } else {
+        const keywords = keywordsParam.split(",") as Keyword[];
+        setQueryParams({ ...queryParams, keywords });
+        setURLSearchParams(keywords);
+      }
     }, []);
 
+    /**
+     * setPhoto sets the photo query parameter in the URL and updates the corresponding state.
+     * @param {string} photo - The photo to set in the URL.
+     */
     function setPhoto(photo: string) {
-      const [uri, params] = window.location.href.split("?");
-      const searchParams = new URLSearchParams(params);
+      const [uri, searchParams] = getURLSearchParams();
 
       if (photo === "") {
         searchParams.delete("photo");
@@ -52,6 +65,10 @@ const withQueryParams: WithQueryParams =
       replaceHistoryState(uri, searchParams);
     }
 
+    /**
+     * toggleKeyword toggles the selection state of a keyword in the URL and updates the corresponding state.
+     * @param {Keyword} keyword - The keyword to toggle the selection state for.
+     */
     function toggleKeyword(keyword: Keyword) {
       const keywords = [...queryParams.keywords];
 
@@ -81,9 +98,12 @@ const withQueryParams: WithQueryParams =
       </>
     );
 
+    /**
+     * setURLSearchParams sets the keywords query parameter in the URL based on the provided keywords.
+     * @param {Keyword[]} keywords - The keywords to set in the URL.
+     */
     function setURLSearchParams(keywords: Keyword[]) {
-      const [uri, params] = window.location.href.split("?");
-      const searchParams = new URLSearchParams(params);
+      const [uri, searchParams] = getURLSearchParams();
 
       if (keywords.length > 0) {
         searchParams.set("keywords", keywords.join(","));
@@ -94,6 +114,11 @@ const withQueryParams: WithQueryParams =
       replaceHistoryState(uri, searchParams);
     }
 
+    /**
+     * replaceHistoryState replaces the current history state with a new URL based on the provided URI and search parameters.
+     * @param {string} uri - The URI to use in the new URL.
+     * @param {URLSearchParams} params - The search parameters to use in the new URL.
+     */
     function replaceHistoryState(uri: string, params: URLSearchParams) {
       const hasQueryParams = Array.from(params.values()).length > 0;
       const url = hasQueryParams ? `?${params.toString()}` : uri;

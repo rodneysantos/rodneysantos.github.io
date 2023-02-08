@@ -137,6 +137,23 @@ describe("QueryParamContext", () => {
     expect(historySpy).toHaveBeenCalledWith(null, "", "http://localhost/");
   });
 
+  it("retains the selected keywords when the page reloads", () => {
+    // arrange
+    locationHrefSpy.mockReturnValue(`${url}?keywords=color%2Clow-key`);
+    const Component = withQueryParams(
+      renderTestComponent({ keyword: "black-and-white" }),
+      { photo: "", keywords: ["black-and-white"] },
+    );
+    render(<Component />);
+
+    // assert
+    expect(historySpy).toHaveBeenCalledWith(
+      null,
+      "",
+      "?keywords=color%2Clow-key",
+    );
+  });
+
   function renderTestComponent(
     uriParams: Partial<{ photo: string; keyword: Keyword }>,
   ): React.FC {
