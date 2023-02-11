@@ -4,12 +4,6 @@ import React, { useEffect, useRef } from "react";
 import { PhotoWithSrc } from "../db";
 import { Keyword } from "../types";
 
-export interface GalleryPhoto {
-  id: string;
-  src: string;
-  keywords: Keyword[];
-}
-
 interface GalleryProps {
   keywords: Keyword[];
   photos: PhotoWithSrc[];

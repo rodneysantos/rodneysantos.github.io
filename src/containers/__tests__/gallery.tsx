@@ -1,7 +1,8 @@
 import { fireEvent, render } from "@testing-library/react";
 import React from "react";
 import rendeder from "react-test-renderer";
-import Gallery, { GalleryPhoto } from "../Gallery";
+import { PhotoWithSrc } from "../../db";
+import Gallery from "../Gallery";
 
 jest.mock("../gallery.module.css", () => ({
   photo: "test",
@@ -9,10 +10,20 @@ jest.mock("../gallery.module.css", () => ({
 
 describe("Gallery component", () => {
   const onPhotoSelect = jest.fn();
-  const photos: GalleryPhoto[] = [
-    { id: "1", src: "photo1.jpg", keywords: ["black-and-white", "color"] },
-    { id: "2", src: "photo2.jpg", keywords: ["architecture", "color"] },
-    { id: "3", src: "photo3.jpg", keywords: ["color"] },
+  const photos: PhotoWithSrc[] = [
+    {
+      id: "1",
+      name: "photo1",
+      src: "photo1.jpg",
+      keywords: ["black-and-white", "color"],
+    },
+    {
+      id: "2",
+      name: "photo2",
+      src: "photo2.jpg",
+      keywords: ["architecture", "color"],
+    },
+    { id: "3", name: "photo3", src: "photo3.jpg", keywords: ["color"] },
   ];
 
   afterEach(() => {
@@ -69,6 +80,7 @@ describe("Gallery component", () => {
     // assert
     expect(onPhotoSelect).toHaveBeenCalledWith({
       id: "1",
+      name: "photo1",
       src: "photo1.jpg",
       keywords: ["black-and-white", "color"],
     });
