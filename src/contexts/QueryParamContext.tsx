@@ -36,7 +36,33 @@ const withQueryParams: WithQueryParams =
     useEffect(() => {
       const [, searchParams] = getURLSearchParams();
       const keywordsParam = searchParams.get("keywords");
+      const photoParam = searchParams.get("photo");
 
+      initKeywordsParam(keywordsParam);
+      initPhotoParam(photoParam);
+    }, []);
+
+    return (
+      <>
+        <QueryParamContext.Provider
+          value={{
+            photo: queryParams.photo,
+            keywords: queryParams.keywords,
+            setPhoto,
+            toggleKeyword,
+          }}
+        >
+          <Component {...props} />
+        </QueryParamContext.Provider>
+      </>
+    );
+
+    /**
+     * initKeywordsParam initializes the keywords query parameter
+     * in the URL based on the provided keywords.
+     * @param {string | null} keywordsParam - The keywords to set in the URL.
+     */
+    function initKeywordsParam(keywordsParam: string | null) {
       if (keywordsParam === null) {
         // setting the default keyword so that when the page loads,
         // only B&W images are displayed.
@@ -46,7 +72,20 @@ const withQueryParams: WithQueryParams =
         setQueryParams({ ...queryParams, keywords });
         setURLSearchParams(keywords);
       }
-    }, []);
+    }
+
+    /**
+     * initPhotoParam initializes the photo query parameter
+     * in the URL based on the provided photo ID.
+     * @param photoParam - The photo to set in the URL.
+     */
+    function initPhotoParam(photoParam: string | null) {
+      if (photoParam === null) {
+        return;
+      }
+
+      setPhoto(photoParam);
+    }
 
     /**
      * setPhoto sets the photo query parameter in the URL and updates the corresponding state.
@@ -82,21 +121,6 @@ const withQueryParams: WithQueryParams =
       setURLSearchParams(keywords);
       setQueryParams({ ...queryParams, keywords });
     }
-
-    return (
-      <>
-        <QueryParamContext.Provider
-          value={{
-            photo: queryParams.photo,
-            keywords: queryParams.keywords,
-            setPhoto,
-            toggleKeyword,
-          }}
-        >
-          <Component {...props} />
-        </QueryParamContext.Provider>
-      </>
-    );
 
     /**
      * setURLSearchParams sets the keywords query parameter in the URL based on the provided keywords.

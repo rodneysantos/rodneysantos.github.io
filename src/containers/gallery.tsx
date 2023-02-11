@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { gsap } from "gsap";
 import React, { useEffect, useRef } from "react";
+import { PhotoWithSrc } from "../db";
 import { Keyword } from "../types";
 
 export interface GalleryPhoto {
@@ -11,8 +12,8 @@ export interface GalleryPhoto {
 
 interface GalleryProps {
   keywords: Keyword[];
-  photos: GalleryPhoto[];
-  onPhotoSelect: (src: GalleryPhoto) => void;
+  photos: PhotoWithSrc[];
+  onPhotoSelect: (photo: PhotoWithSrc) => void;
 }
 
 const Gallery: React.FC<GalleryProps> = ({

@@ -154,6 +154,19 @@ describe("QueryParamContext", () => {
     );
   });
 
+  it("saves the photo param to state when provided on page reload", () => {
+    // arrange
+    locationHrefSpy.mockReturnValue(`${url}?photo=photo-id`);
+    const Component = withQueryParams(renderTestComponent({}), {
+      photo: "photo-id",
+      keywords: [],
+    });
+    render(<Component />);
+
+    // assert
+    expect(historySpy).toHaveBeenCalledWith(null, "", "?photo=photo-id");
+  });
+
   function renderTestComponent(
     uriParams: Partial<{ photo: string; keyword: Keyword }>,
   ): React.FC {

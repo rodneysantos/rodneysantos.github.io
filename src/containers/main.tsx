@@ -2,59 +2,57 @@ import React, { useEffect, useState } from "react";
 import PhotoViewer from "../components/PhotoViewer";
 import Sidebar from "./Sidebar";
 import { useQueryParams, withQueryParams } from "../contexts/QueryParamContext";
-import data, { PhotoAsset } from "../db";
+import { indexPhotos, Photo, PhotoWithSrc } from "../db";
 import { Keyword } from "../types";
-import Gallery, { GalleryPhoto } from "./Gallery";
+import Gallery from "./Gallery";
 import SidebarOutset from "./SidebarOutset";
 
-interface PhotoModuleType {
-  id: string;
-  keywords: string[];
-  default: string;
-}
-
 const Main: React.FC = () => {
-  const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
-  const [selectedPhoto, setSelectedPhoto] = useState<string>("");
+  const { photos, indexedPhotos } = indexPhotos();
+  const [loadedPhotos, setLoadedPhotos] = useState<PhotoWithSrc[]>([]);
   const queryParams = useQueryParams();
 
   useEffect(() => {
-    loadGallery(data)
-      .then((modules) =>
-        modules.map((m) => ({
-          id: m.id,
-          src: m.default,
-          keywords: m.keywords as Keyword[],
-        })),
-      )
-      .then((photos) => setPhotos(photos));
+    loadGallery(photos).then((photos) => setLoadedPhotos(photos));
   }, []);
 
-  const loadGallery = async (photos: PhotoAsset[]) => {
-    const modules = Promise.all(
-      photos.map(
-        async (p) =>
-          ({
-            id: p.id,
-            keywords: p.keywords,
-            ...(await import(`../images/${p.name}.webp`)),
-          }) as PhotoModuleType,
-      ),
-    );
+  /**
+   * loadGallery loads the gallery photos from the images folder.
+   * @param {Photo[]} photos - The photos to load.
+   * @returns {Promise<PhotoWithSrc[]>} - The photos with the src property set.
+   */
+  async function loadGallery(photos: Photo[]) {
+    const photoWithSrc = [];
 
-    return modules;
-  };
+    for (const photo of photos) {
+      const src = (await import(`../images/${photo.name}.webp`)).default;
 
-  const onPhotoSelect = (photo: GalleryPhoto) => {
-    setSelectedPhoto(photo.src);
+      photoWithSrc.push({ ...photo, src });
+    }
+
+    return photoWithSrc;
+  }
+
+  /**
+   * onPhotoSelect sets the photo query parameter in the URL and updates the corresponding state.
+   * @param photo - The photo to set in the URL.
+   */
+  function onPhotoSelect(photo: PhotoWithSrc) {
     queryParams.setPhoto!(photo.id);
-  };
+  }
 
-  const closePhotoViewer = () => {
-    setSelectedPhoto("");
+  /**
+   * closePhotoViewer closes the photo viewer.
+   * @param {string} photo - The photo to set in the URL.
+   */
+  function closePhotoViewer() {
     queryParams.setPhoto!("");
-  };
+  }
 
+  /**
+   * keywordSelectHandler toggles the keyword query parameter in the URL and updates the corresponding state.
+   * @param {Keyword} keyword - The keyword to toggle in the URL.
+   */
   function keywordSelectHandler(keyword: Keyword) {
     queryParams.toggleKeyword!(keyword);
   }
@@ -65,7 +63,7 @@ const Main: React.FC = () => {
         <div className="flex-auto">
           <Gallery
             keywords={queryParams.keywords}
-            photos={photos}
+            photos={loadedPhotos}
             onPhotoSelect={onPhotoSelect}
           />
         </div>
@@ -75,8 +73,14 @@ const Main: React.FC = () => {
         </SidebarOutset>
 
         <PhotoViewer
-          src={selectedPhoto}
-          isVisible={selectedPhoto !== ""}
+          src={
+            loadedPhotos.length > 0 && indexedPhotos.has(queryParams.photo)
+              ? loadedPhotos[indexedPhotos.get(queryParams.photo)!].src
+              : ""
+          }
+          isVisible={
+            queryParams.photo !== "" && indexedPhotos.has(queryParams.photo)
+          }
           closeHandler={closePhotoViewer}
         />
       </main>
