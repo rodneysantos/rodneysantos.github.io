@@ -18,6 +18,7 @@ const config: GatsbyConfig = {
       },
     },
     "gatsby-plugin-image",
+    "gatsby-plugin-netlify",
     "gatsby-plugin-sitemap",
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
