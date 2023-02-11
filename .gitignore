@@ -244,3 +244,6 @@ $RECYCLE.BIN/
 
 # Images
 src/images/*.jpg
+
+# Local Netlify folder
+.netlify
