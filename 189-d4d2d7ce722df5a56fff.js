@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkportfolio=self.webpackChunkportfolio||[]).push([[189],{9189:function(e,t,f){f.r(t),t.default=f.p+"static/DSCF1916-7284801e838ddb06b0772e32f6ce6118.webp"}}]);
+//# sourceMappingURL=189-d4d2d7ce722df5a56fff.js.map
